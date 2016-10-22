@@ -1,6 +1,7 @@
 import datetime
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
+from flask.ext.security import UserMixin, RoleMixin
 from sqlalchemy import select, func, or_, and_
 from app import db
 
@@ -9,7 +10,26 @@ def dump_datetime(value):
         return None
     return [value.strftime("%Y-%m-%d"), value.strftime("%H:%M:%S")]
 
-class User(db.Model):
+roles_users = db.Table('roles_users',
+                       db.Column('user_id', db.Integer(),
+                                 db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
+class Role(db.Model, RoleMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    description = db.Column(db.String(255))
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        return str(self.name)
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -18,13 +38,15 @@ class User(db.Model):
     about_me = db.Column(db.String(255))
     location = db.Column(db.Integer)
     points = db.Column(db.Integer)
-    listings = db.relationship('Listing', backref='user', lazy='dynamic')
-    purchased_listings = db.relationship('Listing', backref='user', lazy='dynamic')
+    listings = db.relationship('Listing', backref='seller', lazy='dynamic')
+    purchases = db.relationship('Listing', backref='buyer', lazy='dynamic')
+    roles = db.relationship('Role', secondary=roles_users,
+                            backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
         return str(self.username)
 
-    def __init__(self, name, username, password, location):
+    def __init__(self, name, username, password, email, location):
         self.name = name
         self.username = username
         self.email = email
@@ -48,14 +70,19 @@ class User(db.Model):
         return {col: cols.get(col, None) for col in columns}
 
 class Listing(db.Model):
+    __tablename__ = 'listing'
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), unique=True, nullable=False)
     category = db.Column(db.String(80), nullable=False)
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    #seller = db.relationship("User", foreign_keys="Listing.user_id")
+    #buyer = db.relationship("User", foreign_keys="Listing.buyer_id")
 
     def filtered_listings(self, category, location=None):
         # return a filtered list of 20 listings based on category and location
