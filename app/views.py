@@ -3,7 +3,7 @@ from app import app
 # This is the homepage/categories page!
 @app.route('/')
 @app.route('/index.html')
-@app.route('categories')
+@app.route('/categories')
 def categories():
     return "There will be categories here. Eventually. Tomorrow for sure..."
 
