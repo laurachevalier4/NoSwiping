@@ -4,7 +4,7 @@ from flask.json import JSONEncoder
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager, current_user
 from flask.ext.babel import Babel, lazy_gettext
-import model, views
+import views
 
 app = Flask(__name__)
 app.config.from_object('config')
