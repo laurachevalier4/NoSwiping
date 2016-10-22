@@ -2,8 +2,7 @@ import datetime
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import select, func, or_, and_
-
-db = SQLAlchemy()
+from app import db
 
 def dump_datetime(value):
     if value is None:
