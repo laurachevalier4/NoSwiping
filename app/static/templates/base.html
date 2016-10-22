@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Don't Steal</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a style="font-size: 1.5em; color: #666699;" href="{{ url_for('index') }}">Don't Steal <span style="color: #8585ad; font-size: 1em;"> . . . Just Borrow</span></a></li>
+              <li><a style="color: white;" href="{{ url_for('index') }}">Home</a></li>
+              <li><a style="color: white;" href="{{ url_for('user', nickname = g.user.nickname) }}">Profile</a></li>
+            </ul>
+            <form class="navbar-form navbar-left">
+              <div class="form-group">
+                <input style="background-color: white;" type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" style="background-color: white;" class="btn btn-default btn-med"><span class="glyphicon glyphicon-search" aria-hidden="true" style="background-color: white; color: darkgrey"></span></button>
+            </form>
+            <ul class="nav navbar-nav">
+              <li><a style="color: white;" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+      </div><!-- /.container-fluid -->
+    </nav>
+  </body>
+</html>

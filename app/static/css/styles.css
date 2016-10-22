@@ -1,0 +1,14 @@
+body {
+  font-family: Volkorn;
+  background-color: white;
+}
+
+.container-fluid * {
+  background-color: #80dfff;
+  color: gray;
+  font-size: 1.05em;
+}
+
+a:hover {
+  font-size: 1.1em;
+}
