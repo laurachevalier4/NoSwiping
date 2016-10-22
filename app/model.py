@@ -12,6 +12,7 @@ def dump_datetime(value):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(120))
     about_me = db.Column(db.String(255))
@@ -50,7 +51,7 @@ class Listing(db.Model):
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    buyer_id = db.relationship('User', backref='listing', lazy='dynamic', default=None)
+    buyer_id = db.relationship('User', backref='listing', lazy='dynamic')
     user_id = db.relationship('User', backref='listing', lazy='dynamic')
 
     def filtered_listings(self, category, location=None):
@@ -60,8 +61,8 @@ class Listing(db.Model):
     def serialize(self, columns):
         cols = {
             'id': self.id,
-            'title', self.title,
-            'category', self.category,
+            'title': self.title,
+            'category': self.category,
             'cost': self.cost,
             'location': self.location,
             'date_listed': dump_datetime(self.date_listed),
