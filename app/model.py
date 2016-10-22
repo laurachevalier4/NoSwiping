@@ -47,9 +47,9 @@ class User(db.Model, UserMixin):
 
     def get_listings(self, buyer_or_seller):
         if (buyer_or_seller == "seller"):
-            return Listing.query.filter(Listing.seller_id == self.id)
+            return Listing.query.all().filter(Listing.seller_id == self.id)
         else:
-            return Listing.query.filter(Listing.buyer_id == self.id)
+            return Listing.query.all().filter(Listing.buyer_id == self.id)
 
     """
     def __init__(self, name, username, password, email, location):
@@ -90,7 +90,7 @@ class Listing(db.Model):
 
     def filtered_listings(self, category, location=None):
         # return a filtered list of 20 listings based on category and location
-        results = Listing.query.filter(and_(Listing.category == category, _or(Listing.location == location, location == None))).order_by(Listing.date_listed.desc()).limit(20)
+        results = Listing.query.all().filter(and_(Listing.category == category, _or(Listing.location == location, location == None))).order_by(Listing.date_listed.desc()).limit(20)
 
     def serialize(self, columns):
         cols = {
