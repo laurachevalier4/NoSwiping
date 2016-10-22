@@ -38,13 +38,17 @@ class User(db.Model, UserMixin):
     about_me = db.Column(db.String(255))
     location = db.Column(db.Integer)
     points = db.Column(db.Integer)
-    listings = db.relationship('Listing', backref='seller', lazy='dynamic')
-    purchases = db.relationship('Listing', backref='buyer', lazy='dynamic')
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
         return str(self.username)
+
+    def get_listings(self, buyer_or_seller):
+        if (buyer_or_seller == "seller"):
+            return Listing.query.filter(Listing.seller_id == self.id)
+        else:
+            return Listing.query.filter(Listing.buyer_id == self.id)
 
     def __init__(self, name, username, password, email, location):
         self.name = name
@@ -73,16 +77,13 @@ class Listing(db.Model):
     __tablename__ = 'listing'
 
     id = db.Column(db.Integer, primary_key=True)
+    seller_id = db.Column(db.Integer)
+    buyer_id = db.Column(db.Integer)
     title = db.Column(db.String(255), unique=True, nullable=False)
     category = db.Column(db.String(80), nullable=False)
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    #seller = db.relationship("User", foreign_keys="Listing.user_id")
-    #buyer = db.relationship("User", foreign_keys="Listing.buyer_id")
 
     def filtered_listings(self, category, location=None):
         # return a filtered list of 20 listings based on category and location
