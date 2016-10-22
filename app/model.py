@@ -32,6 +32,7 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
+    active = db.Column(db.Boolean(), default=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(120))
@@ -50,12 +51,14 @@ class User(db.Model, UserMixin):
         else:
             return Listing.query.filter(Listing.buyer_id == self.id)
 
+    """
     def __init__(self, name, username, password, email, location):
         self.name = name
         self.username = username
         self.email = email
         self.password = password
         self.location = location
+    """
 
     def user_listings(self):
         # return listings for given user

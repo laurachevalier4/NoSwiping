@@ -1,0 +1,14 @@
+<html>
+  <head>
+    {% if user %}
+    <title>{{ user }}</title>
+    {% else %}
+    <title>Welcome to Lending and Borrowing</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>: Lending and Borrowing<a href="/index">Home</a></div>
+    <hr>
+    {% block content %}{% endblock %}
+  </body>
+</html>

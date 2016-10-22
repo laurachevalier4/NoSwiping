@@ -4,6 +4,8 @@ from flask.json import JSONEncoder
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager, current_user
 from flask.ext.babel import Babel, lazy_gettext
+from flask.ext.security import Security, SQLAlchemyUserDatastore, \
+    UserMixin, RoleMixin, login_required
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -11,6 +13,7 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 from app import views, model
+from model import User, Role
 
 lm = LoginManager()
 lm.init_app(app)
@@ -34,26 +37,42 @@ class CustomJSONEncoder(JSONEncoder):
 
 app.json_encoder = CustomJSONEncoder
 
+# Setup Flask_Security
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore)
+
 @app.before_first_request
 def before_first_request():
-    user_datastore = app.security.datastore
-    testuser1 = {
+    testuser2 = {
         'name': 'Laura Chevalier',
         'username': 'LauraIsCool',
-        'password': 'secretcode'
+        'password': 'secretcode',
+        'email': 'xxx@nyu.edu',
+        'active': True
     }
 
-    testuser2 = {
+    testuser3 = {
         'name': 'Vincent Chov',
         'username': 'VincentIsCool2',
-        'password': 'muffin'
+        'password': 'muffin',
+        'email': 'yyy@nyu.edu',
+        'active': True
     }
 
-    if not user_datastore.get_user(testuser1['email']):
-        user_datastore.create_user(**user1)
+    user_datastore.find_or_create_role(
+        name='admin', description='Administrator')
+    user_datastore.find_or_create_role(name='user', description='End user')
 
     if not user_datastore.get_user(testuser2['email']):
-        user_datastore.create_user(**user2)
+        user_datastore.create_user(**testuser2)
+
+    if not user_datastore.get_user(testuser3['email']):
+        user_datastore.create_user(**testuser3)
+
+    db.session.commit()
+
+    user_datastore.add_role_to_user(testuser2['username'], 'user')
+    user_datastore.add_role_to_user(testuser3['username'], 'admin')
 
     db.session.commit()
 

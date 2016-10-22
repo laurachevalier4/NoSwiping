@@ -24,10 +24,10 @@ def configure_app(app):
     print "Running " + str(config_name) + " environment."
     app.jinja_env.filters['format_md5'] = helpers.format_md5
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-    app.security = Security(app,
+    """app.security = Security(app,
                             user_datastore,
                             confirm_register_form=forms.ExtendedConfirmForm,
-                            register_form=forms.ExtendedRegisterForm)
+                            register_form=forms.ExtendedRegisterForm)"""
 
 # slow database query threshold (in seconds)
 DATABASE_QUERY_TIMEOUT = 0.5
