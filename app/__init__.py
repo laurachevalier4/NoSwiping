@@ -63,6 +63,8 @@ def before_first_request():
         name='admin', description='Administrator')
     user_datastore.find_or_create_role(name='user', description='End user')
 
+    db.session.commit()
+
     if not user_datastore.get_user(testuser2['email']):
         user_datastore.create_user(**testuser2)
 
@@ -71,8 +73,8 @@ def before_first_request():
 
     db.session.commit()
 
-    user_datastore.add_role_to_user(testuser2['username'], 'user')
-    user_datastore.add_role_to_user(testuser3['username'], 'admin')
+    user_datastore.add_role_to_user(testuser2['email'], 'user')
+    user_datastore.add_role_to_user(testuser3['email'], 'admin')
 
     db.session.commit()
 
