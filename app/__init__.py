@@ -43,6 +43,9 @@ security = Security(app, user_datastore)
 
 @app.before_first_request
 def before_first_request():
+    db.drop_all()
+    db.create_all()
+
     testuser2 = {
         'name': 'Laura Chevalier',
         'username': 'LauraIsCool',
@@ -76,6 +79,28 @@ def before_first_request():
     user_datastore.add_role_to_user(testuser2['email'], 'user')
     user_datastore.add_role_to_user(testuser3['email'], 'admin')
 
+    db.session.commit()
+
+    testListing1 = {
+        'seller_id' : 'puppies',
+        'buyer_id' : 'students',
+        'title' : 'Free pet therapy session',
+        'category' : 'therapy'
+    }
+
+    listing1 = model.Listing(**testListing1)
+    db.session.add(listing1)
+    db.session.commit()
+
+    testListing2 = {
+        'seller_id' : 'FatherTime',
+        'buyer_id' : 'You',
+        'title' : 'Buying time',
+        'category' : 'services'
+    }
+
+    listing2 = model.Listing(**testListing2)
+    db.session.add(listing2)
     db.session.commit()
 
 if os.environ.get('HEROKU') is not None:

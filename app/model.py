@@ -88,9 +88,11 @@ class Listing(db.Model):
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    def filtered_listings(self, category, location=None):
-        # return a filtered list of 20 listings based on category and location
-        results = Listing.query.all().filter(and_(Listing.category == category, _or(Listing.location == location, location == None))).order_by(Listing.date_listed.desc()).limit(20)
+    def __init__(self, seller_id, buyer_id, title, category):
+        self.seller_id = seller_id
+        self.buyer_id = buyer_id
+        self.title = title
+        self.category = category
 
     def serialize(self, columns):
         cols = {
