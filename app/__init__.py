@@ -6,6 +6,7 @@ from flask.ext.login import LoginManager
 from flask.ext.babel import Babel, lazy_gettext
 from config import basedir, ADMINS
 from flask_security import current_user
+import model, views
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -61,5 +62,3 @@ if os.environ.get('HEROKU') is not None:
     app.logger.addHandler(stream_handler)
     app.logger.setLevel(logging.INFO)
     app.logger.info('lending and borrowing setup')
-
-from app import views, model

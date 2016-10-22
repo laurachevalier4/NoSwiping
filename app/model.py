@@ -19,12 +19,15 @@ class User(db.Model):
     location = db.Column(db.Integer)
     points = db.Column(db.Integer)
     listings = db.relationship('Listing', backref='user', lazy='dynamic')
+    purchased_listings = db.relationship('Listing', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return str(self.username)
 
-    def __init__(self, name, password, location):
+    def __init__(self, name, username, password, location):
         self.name = name
+        self.username = username
+        self.email = email
         self.password = password
         self.location = location
 
@@ -51,8 +54,8 @@ class Listing(db.Model):
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    buyer_id = db.relationship('User', backref='listing', lazy='dynamic')
-    user_id = db.relationship('User', backref='listing', lazy='dynamic')
+    user_id = db.Column('User', db.ForeignKey('user.id'))
+    buyer_id = db.Column('User', db.ForeignKey('user.id'))
 
     def filtered_listings(self, category, location=None):
         # return a filtered list of 20 listings based on category and location
@@ -66,5 +69,6 @@ class Listing(db.Model):
             'cost': self.cost,
             'location': self.location,
             'date_listed': dump_datetime(self.date_listed),
+            'user_id': self.user_id
         }
         return {col: cols.get(col, None) for col in columns}

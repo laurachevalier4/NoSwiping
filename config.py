@@ -1,4 +1,5 @@
-import os, logging, forms, helpers
+import os, logging
+from app import helpers
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 LOGGING_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -18,7 +19,15 @@ SQLALCHEMY_RECORD_QUERIES = True
 WHOOSH_BASE = os.path.join(basedir, 'search.db')
 # Not sure what WHOOSH is...
 
-app.jinja_env.filters['format_md5'] = helpers.format_md5
+def configure_app(app):
+    config_name = os.getenv('FLASK_CONFIGURATION', 'default')
+    print "Running " + str(config_name) + " environment."
+    app.jinja_env.filters['format_md5'] = helpers.format_md5
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    app.security = Security(app,
+                            user_datastore,
+                            confirm_register_form=forms.ExtendedConfirmForm,
+                            register_form=forms.ExtendedRegisterForm)
 
 # slow database query threshold (in seconds)
 DATABASE_QUERY_TIMEOUT = 0.5
