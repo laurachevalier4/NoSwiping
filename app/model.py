@@ -54,8 +54,8 @@ class Listing(db.Model):
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    user_id = db.Column('User', db.ForeignKey('user.id'))
-    buyer_id = db.Column('User', db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def filtered_listings(self, category, location=None):
         # return a filtered list of 20 listings based on category and location
