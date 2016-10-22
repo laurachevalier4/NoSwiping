@@ -82,8 +82,8 @@ def before_first_request():
     db.session.commit()
 
     testListing1 = {
-        'seller_id' : 'puppies',
-        'buyer_id' : 'students',
+        'seller_id' : 1,
+        'buyer_id' : 2,
         'title' : 'Free pet therapy session',
         'category' : 'therapy'
     }
@@ -93,14 +93,25 @@ def before_first_request():
     db.session.commit()
 
     testListing2 = {
-        'seller_id' : 'FatherTime',
-        'buyer_id' : 'You',
+        'seller_id' : 3,
+        'buyer_id' : 4,
         'title' : 'Buying time',
         'category' : 'services'
     }
 
     listing2 = model.Listing(**testListing2)
     db.session.add(listing2)
+    db.session.commit()
+
+    testListing3 = {
+        'seller_id' : 5,
+        'buyer_id' : 6,
+        'title' : 'StackOverflow tutoring',
+        'category' : 'services'
+    }
+
+    listing3 = model.Listing(**testListing3)
+    db.session.add(listing3)
     db.session.commit()
 
 if os.environ.get('HEROKU') is not None:

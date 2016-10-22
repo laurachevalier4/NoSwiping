@@ -102,6 +102,7 @@ class Listing(db.Model):
             'cost': self.cost,
             'location': self.location,
             'date_listed': dump_datetime(self.date_listed),
-            'user_id': self.user_id
+            'seller_id' : self.seller_id,
+            'buyer_id': self.buyer_id
         }
         return {col: cols.get(col, None) for col in columns}

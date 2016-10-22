@@ -1,0 +1,23 @@
+{% block content %}
+<h1>{{ numOfListings }} listings found for the  {{ category_name }} category!</h1>
+<table>
+    <tr>
+        <th> seller_id </th>
+        <th> buyer_id </th> 
+        <th> title </th>
+        <th> category </th>
+        <th> cost </th>
+        <th> date_listed </th>
+    </tr>
+    {% for listing in listings %}
+        <tr>
+            <td> {{ listing.seller_id }}</td>
+            <td> {{ listing.buyer_id }} </td>
+            <td> {{ listing.title }} </td>
+            <td> {{ listing.category }} </td>
+            <td> {{ listing.cost }} </td>
+            <td> {{ listing.date_listed }} </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
