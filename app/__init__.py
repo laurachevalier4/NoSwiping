@@ -2,10 +2,8 @@ import os
 from flask import Flask
 from flask.json import JSONEncoder
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, current_user
 from flask.ext.babel import Babel, lazy_gettext
-from config import basedir, ADMINS
-from flask_security import current_user
 import model, views
 
 app = Flask(__name__)
