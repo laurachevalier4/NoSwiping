@@ -16,13 +16,16 @@
       <br>
       <button class="btn btn-lg btn-primary btn-block" style="background-color: white; color: #666699; border: none; box-shadow: 4px 6px 4px 0px #999;" type="button">Post </button>
     </form>
-    <img src="../static/img/fox.png" width="200" height="150" alt="Don't Steal... Just Borrow" style="box-shadow: 4px 6px 4px 0px #999;">
+    <!--<img src="../static/img/fox.png" width="200" height="150" alt="Don't Steal... Just Borrow" style="box-shadow: 4px 6px 4px 0px #999;">-->
     <script type="text/javascript">
       $(function() {
         $('button').click(function() {
         var title = $('#txtTitle').val();
         var value = $('#txtValue').val();
         var category = $('#categories').val();
+        console.log(title);
+        console.log(value);
+        console.log(category);
         $.ajax({
             url: '/newPost',
             data: $('form').serialize(),
