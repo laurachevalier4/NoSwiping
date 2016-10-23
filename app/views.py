@@ -43,7 +43,6 @@ def newpost():
         db.session.add(new_post)
         db.session.commit()
         post = Listing.query.filter_by(title=title).first()
-        print(post)
         return "All good"
 
 
