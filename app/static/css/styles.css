@@ -9,7 +9,11 @@ body {
   font-size: 1.15em;
 }
 
-a:hover {
+.navbar {
+  box-shadow: 0 12px 8px 0px #999;
+}
+
+li > a:hover {
   transition-delay: .15s;
   font-size: 1.2em;
 }
@@ -20,24 +24,30 @@ a:hover {
   text-align: center;
 }
 
-.col-centered {
-    display: inline-block;
-    float: none;
-    /* reset the text-align */
-    text-align: left;
-    /* inline-block space fix */
-    margin-right:-4px;
-}
-
-.col-md-3 {
-  justify-content: center;
+.col-md-4 {
   text-align: center;
-  background-color: lightgray;
+  background-color: #f0f0f5;
   padding-left: 2em;
   padding-right: 2em;
-  padding-top: 5em;
-  padding-bottom: 5em;
+  padding-top: 3em;
+  padding-bottom: 3em;
   margin: 1em;
-  color: white;
-  font-size: 2em;
+  color: #666699;
+  font-size: 3em;
+  box-shadow: 8px 12px 8px 0px #999;
+}
+
+.col-centered {
+  display: inline-block;;
+  float: none;
+  /* reset the text-align */
+  text-align: middle;
+  /* inline-block space fix */
+  vertical-align: middle;
+}
+
+.form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }

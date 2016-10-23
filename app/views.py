@@ -1,13 +1,24 @@
 from app import app
 from app import model
-from flask import render_template
+from flask import render_template, flash, redirect, session, url_for, request, \
+    g, jsonify
+from flask.ext.login import login_user, logout_user, current_user, \
+    login_required
+
+@app.before_request
+def before_request():
+    g.user = current_user
 
 # This is the homepage/categories page!
 @app.route('/')
-@app.route('/index.html')
+@app.route('/index')
 @app.route('/categories')
-def categories():
-    return "There will be categories here. Eventually. Tomorrow for sure..."
+def index():
+    return render_template("index.html")
+
+@app.route('/newPost')
+def newPost():
+    return render_template('newPost.html')
 
 # Once you choose a category, show some transactions from that category
 @app.route('/categories/<category_name>')
