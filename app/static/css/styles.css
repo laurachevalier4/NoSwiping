@@ -1,6 +1,8 @@
 body {
   font-family: Volkorn;
   background-color: white;
+  background-image: url('../img/foxtile.jpg');
+  background-repeat: repeat;
 }
 
 .container-fluid * {
@@ -47,7 +49,14 @@ li > a:hover {
 }
 
 .form {
-  margin-left: auto;
+  display: inline-block;
+  margin-left: 5em;
   margin-right: auto;
-  width: 80%;
+  width: 60%;
+}
+
+img {
+  float: none;
+  margin: 5em;
+  margin-bottom: 8em;
 }
