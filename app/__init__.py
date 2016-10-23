@@ -85,7 +85,7 @@ def before_first_request():
         'seller_id' : 1,
         'buyer_id' : 2,
         'title' : 'Free pet therapy session',
-        'category' : 'therapy'
+        'category' : 'games'
     }
 
     listing1 = model.Listing(**testListing1)

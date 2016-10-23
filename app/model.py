@@ -3,7 +3,15 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask.ext.security import UserMixin, RoleMixin
 from sqlalchemy import select, func, or_, and_
-from app import db
+from app import app, db
+
+# Import whooshalchemy if you can so you can enable search
+import sys
+if sys.version_info >= (3, 0):
+    enable_search = False
+else:
+    enable_search = True
+    import flask.ext.whooshalchemy as whooshalchemy
 
 def dump_datetime(value):
     if value is None:
@@ -78,6 +86,7 @@ class User(db.Model, UserMixin):
 
 class Listing(db.Model):
     __tablename__ = 'listing'
+    __searchable__ = ['title']
 
     id = db.Column(db.Integer, primary_key=True)
     seller_id = db.Column(db.Integer)
@@ -106,3 +115,6 @@ class Listing(db.Model):
             'buyer_id': self.buyer_id
         }
         return {col: cols.get(col, None) for col in columns}
+
+if enable_search:
+    whooshalchemy.whoosh_index(app, Listing)
