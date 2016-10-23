@@ -1,17 +1,21 @@
 from app import app
-from app import model
+from app import model, db
 from flask import render_template, flash, redirect, session, url_for, request, \
     g, jsonify, abort
 from flask.ext.login import login_user, logout_user, current_user, \
     login_required
 
 from pagination import Pagination, get_listings_for_page, url_for_other_page
+from config import MAX_SEARCH_RESULTS
+from datetime import datetime
+from forms import SearchForm
 
 PER_PAGE = 20       # Number of results per page
 
 @app.before_request
 def before_request():
     g.user = current_user
+    g.search_form = SearchForm()
 
 # This is the homepage/categories page!
 @app.route('/')
@@ -61,3 +65,16 @@ def category(category_name, page):
 @app.route('/transactions/<transaction_id>')
 def transaction(transaction_id):
     return "You chose the %s transaction!" %(transaction_id)
+
+@app.route('/search', methods=['POST'])
+def search():
+    if not g.search_form.validate_on_submit():
+        return redirect(url_for('index'))
+    return redirect(url_for('search_results', query=g.search_form.search.data))
+
+@app.route('/search_results/<query>')
+def search_results(query):
+    results = Post.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
+    return render_template('search_results.html',
+                           query=query,
+                           results=results)
