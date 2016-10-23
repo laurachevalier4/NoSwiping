@@ -84,8 +84,9 @@ def before_first_request():
     testListing1 = {
         'seller_id' : 1,
         'buyer_id' : 2,
-        'title' : 'Free pet therapy session',
-        'category' : 'therapy'
+        'title' : 'Cast of Jersey Shore',
+        'category' : 'Tools',
+        'cost' : 2
     }
 
     listing1 = model.Listing(**testListing1)
@@ -95,8 +96,9 @@ def before_first_request():
     testListing2 = {
         'seller_id' : 3,
         'buyer_id' : 4,
-        'title' : 'Buying time',
-        'category' : 'services'
+        'title' : 'My Little Pony',
+        'category' : 'Games',
+        'cost' : 30
     }
 
     listing2 = model.Listing(**testListing2)
@@ -106,8 +108,9 @@ def before_first_request():
     testListing3 = {
         'seller_id' : 5,
         'buyer_id' : 6,
-        'title' : 'StackOverflow tutoring',
-        'category' : 'services'
+        'title' : 'Magic Bullet',
+        'category' : 'Kitchenware',
+        'cost' : 400
     }
 
     listing3 = model.Listing(**testListing3)

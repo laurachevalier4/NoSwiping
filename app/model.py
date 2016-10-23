@@ -88,11 +88,12 @@ class Listing(db.Model):
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    def __init__(self, seller_id, buyer_id, title, category):
+    def __init__(self, seller_id, buyer_id, title, category, cost):
         self.seller_id = seller_id
         self.buyer_id = buyer_id
         self.title = title
         self.category = category
+        self.cost = cost
 
     def serialize(self, columns):
         cols = {
