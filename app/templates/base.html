@@ -25,9 +25,8 @@
             </ul>
             <form class="navbar-form navbar-left" action="{{ url_for('search') }}" method="post" name="search">
               <div class="form-group">
-                <input style="background-color: white;" type="text" class="form-control" placeholder="Search">
+                {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=20) }}
               </div>
-              <button type="submit" style="background-color: white;" class="btn btn-default btn-med"><span class="glyphicon glyphicon-search" aria-hidden="true" style="background-color: white; color: darkgrey"></span></button>
             </form>
             <ul class="nav navbar-nav">
               <li><a style="color: #8585ad;" href="#">Logout</a></li>
