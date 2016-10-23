@@ -2,17 +2,16 @@
 {% block content %}
   <form class="form-signin form" action="/newPost" method="post" role="form">
     <h2 class="form-signin-heading" style="color: #666699">Create a New Listing</h2>
-      <input type="email" name="Title" class="form-control" placeholder="Title" required autofocus
+      <input type="email" id="title" class="form-control" placeholder="Title" required autofocus
       style="box-shadow: 4px 6px 4px 0px #999;">
-      <input type="email" name="Value" class="form-control" placeholder="Value" style="box-shadow: 4px 6px 4px 0px #999;" required>
+      <input type="email" id="value" class="form-control" placeholder="Value" style="box-shadow: 4px 6px 4px 0px #999;" required>
       <select class="form-control" id="categories" style="box-shadow: 4px 6px 4px 0px #999;">
         <option>Choose a Category</option>
-        <option>Kitchenware</option>
-        <option>Books</option>
-        <option>Games</option>
-        <option>Tools</option>
+        <option>kitchenware</option>
+        <option>books</option>
+        <option>games</option>
+        <option>tools</option>
       </select>
-
       <br>
       <button class="btn btn-lg btn-primary btn-block" style="background-color: white; color: #666699; border: none; box-shadow: 4px 6px 4px 0px #999;" type="button">Post </button>
     </form>
@@ -20,14 +19,14 @@
     <script type="text/javascript">
       $(function() {
         $('button').click(function() {
-        var title = $('#txtTitle').val();
-        var value = $('#txtValue').val();
+        var title = $('#title').val();
+        var value = $('#value').val();
         var category = $('#categories').val();
         console.log(title);
         console.log(value);
         console.log(category);
         $.ajax({
-            url: '/newPost',
+            url: '/newpost',
             data: $('form').serialize(),
             type: 'POST',
             success: function(response) {
