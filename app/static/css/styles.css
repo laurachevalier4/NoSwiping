@@ -56,6 +56,22 @@ li >a:hover {
 .form-group {
   background-color: white;
 }
+th {
+  color: #666699;
+  background-color: white;
+  font-size: 1.2em;
+}
+
+table {
+  border-style: solid;
+  border-radius: 2px;
+}
+
+tr, td {
+  background-color: #f0f0f5;
+  color: #666699;
+  font-size: 1.1em;
+}
 
 .form {
   display: inline-block;
