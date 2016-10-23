@@ -1,5 +1,6 @@
 from app import app
 from app import model
+from flask import render_template
 
 # This is the homepage/categories page!
 @app.route('/')
@@ -12,7 +13,12 @@ def categories():
 @app.route('/categories/<category_name>')
 def category(category_name):
     listings = model.Listing.query.filter_by(category = category_name).limit(20).all()
-    return "%d listings found for that category" %(len(listings))
+
+    numOfListings = len(listings)
+    return render_template("category.html",
+                    category_name = category_name,
+                    numOfListings = numOfListings,
+                    listings = listings)
 
 # The page for a specific transaction
 @app.route('/transactions/<transaction_id>')
