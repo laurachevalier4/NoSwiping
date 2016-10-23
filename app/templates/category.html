@@ -5,12 +5,12 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th> seller_id </th>
-                <th> buyer_id </th>
-                <th> title </th>
-                <th> category </th>
-                <th> cost </th>
-                <th> date_listed </th>
+                <th> Seller </th>
+                <th> Buyer </th>
+                <th> Transaction Title </th>
+                <th> Category </th>
+                <th> Cost </th>
+                <th> Date Listed </th>
             </tr>
         </thead>
         <tbody>
@@ -29,3 +29,23 @@
 </div>
 
 {% endblock %}
+
+{% macro render_pagination(pagination) %}
+<div class=pagination>
+    {%- for page in pagination.iter_pages() %}
+    {% if page %}
+    {% if page != pagination.page %}
+    <a href="{{ url_for_other_page(page) }}">{{ page }}</a>
+    {% else %}
+    <strong>{{ page }}</strong>
+    {% endif %}
+    {% else %}
+    <span class=ellipsis>…</span>
+    {% endif %}
+    {%- endfor %}
+    {% if pagination.has_next %}
+    <a href="{{ url_for_other_page(pagination.page + 1)
+    }}">Next &raquo;</a>
+    {% endif %}
+</div>
+{% endmacro %}

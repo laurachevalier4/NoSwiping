@@ -1,9 +1,13 @@
 from app import app
 from app import model
 from flask import render_template, flash, redirect, session, url_for, request, \
-    g, jsonify
+    g, jsonify, abort
 from flask.ext.login import login_user, logout_user, current_user, \
     login_required
+
+from pagination import Pagination, get_listings_for_page, url_for_other_page
+
+PER_PAGE = 20       # Number of results per page
 
 @app.before_request
 def before_request():
@@ -22,15 +26,36 @@ def newPost():
         return render_template('newPost.html')
 
 # Once you choose a category, show some transactions from that category
-@app.route('/categories/<category_name>')
-def category(category_name):
-    listings = model.Listing.query.filter_by(category = category_name).limit(20).all()
+# @app.route('/categories/<category_name>')
+# def category(category_name):
+#     listings = model.Listing.query.filter_by(category = category_name).limit(20).all()
+#
+#     numOfListings = len(listings)
+#     return render_template("category.html",
+#                     category_name = category_name,
+#                     numOfListings = numOfListings,
+#                     listings = listings)
 
-    numOfListings = len(listings)
-    return render_template("category.html",
-                    category_name = category_name,
-                    numOfListings = numOfListings,
-                    listings = listings)
+# Once you choose a category, show some transactions from that category
+@app.route('/categories/<category_name>', defaults={'page': 1})
+@app.route('/categories/<category_name>/<int:page>')
+def category(category_name, page):
+    allListings = model.Listing.query.filter_by(category = category_name).all()
+    count = len(allListings)
+
+    listings = get_listings_for_page(page, PER_PAGE, count, allListings)
+
+    if len(listings) < 1 and page != 1:
+        # There are no more pages left
+        abort(404)
+
+    # Otherwise, create a new page
+    pagination = Pagination(page, PER_PAGE, count)
+    return render_template('category.html',
+                           pagination=pagination,
+                           listings=listings,
+                           category_name = category_name,
+                           numOfListings = count)
 
 # The page for a specific transaction
 @app.route('/transactions/<transaction_id>')
