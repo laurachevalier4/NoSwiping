@@ -24,10 +24,10 @@ def before_request():
 def index():
     return render_template("index.html")
 
-@app.route('/newPost', methods=['GET', 'POST'])
-def newPost():
+@app.route('/newpost', methods=['GET', 'POST'])
+def newpost():
     if request.method == 'GET':
-        return render_template('newPost.html')
+        return render_template('newpost.html')
     elif request.method == 'POST':
         title = request.form['title']
         value = request.form['value']
