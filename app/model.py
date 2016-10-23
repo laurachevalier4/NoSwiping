@@ -96,12 +96,13 @@ class Listing(db.Model):
 
     def serialize(self, columns):
         cols = {
-            'id': self.id,
-            'title': self.title,
-            'category': self.category,
-            'cost': self.cost,
-            'location': self.location,
-            'date_listed': dump_datetime(self.date_listed),
-            'user_id': self.user_id
+            'id': int(self.id),
+            'title': str(self.title),
+            'category': str(self.category),
+            'cost': int(self.cost),
+            'location': str(self.location),
+            'date_listed': str(dump_datetime(self.date_listed)),
+            'seller_id': int(self.seller_id),
+            'buyer_id': int(self.buyer_id)
         }
         return {col: cols.get(col, None) for col in columns}

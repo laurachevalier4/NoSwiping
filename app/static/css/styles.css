@@ -4,11 +4,40 @@ body {
 }
 
 .container-fluid * {
-  background-color: #80dfff;
+  background-color: #99ccff;
   color: gray;
-  font-size: 1.05em;
+  font-size: 1.15em;
 }
 
 a:hover {
-  font-size: 1.1em;
+  transition-delay: .15s;
+  font-size: 1.2em;
+}
+
+.categories-grid {
+  background-color: white;
+  justify-content: center;
+  text-align: center;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    /* reset the text-align */
+    text-align: left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.col-md-3 {
+  justify-content: center;
+  text-align: center;
+  background-color: lightgray;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 5em;
+  padding-bottom: 5em;
+  margin: 1em;
+  color: white;
+  font-size: 2em;
 }
