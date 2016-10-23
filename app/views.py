@@ -4,6 +4,8 @@ from flask import render_template, flash, redirect, session, url_for, request, \
     g, jsonify, abort
 from flask.ext.login import login_user, logout_user, current_user, \
     login_required
+from flask.ext.sqlalchemy import SQLAlchemy
+from model import Listing
 
 from pagination import Pagination, get_listings_for_page, url_for_other_page
 from config import MAX_SEARCH_RESULTS
@@ -29,18 +31,20 @@ def newpost():
     if request.method == 'GET':
         return render_template('newpost.html')
     elif request.method == 'POST':
-        title = request.form['title']
-        print("Title:", title)
-        value = request.form['value']
-        print("Value:", value)
-        category = request.form['category']
-        print("Category:", category)
-        userid = current_user.id
+        print("user posted!")
+        title = request.form.get('title')
+        print("Title:", str(title))
+        value = request.form.get('value')
+        print("Value:", int(value))
+        category = request.form.get('category')
+        print("Category:", str(category))
+        userid = 1
         new_post = model.Listing(seller_id=userid, buyer_id=0, title=title, category=category, cost=value)
         db.session.add(new_post)
         db.session.commit()
-        post = model.Listing.query.all().filter_by(seller_id=userid, title=title)
-        return json.dumps({'status':'OK', 'data':post});
+        post = Listing.query.filter_by(title=title).first()
+        print(post)
+        return "All good"
 
 
 # Once you choose a category, show some transactions from that category

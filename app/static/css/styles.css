@@ -53,6 +53,10 @@ li >a:hover {
   vertical-align: middle;
 }
 
+.form-group {
+  background-color: white;
+}
+
 .form {
   display: inline-block;
   margin-left: 5em;

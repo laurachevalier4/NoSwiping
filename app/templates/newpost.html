@@ -7,10 +7,10 @@
       <input type="email" id="value" class="form-control" placeholder="Value" style="box-shadow: 4px 6px 4px 0px #999;" required>
       <select class="form-control" id="categories" style="box-shadow: 4px 6px 4px 0px #999;">
         <option>Choose a Category</option>
-        <option>kitchenware</option>
-        <option>books</option>
-        <option>games</option>
-        <option>tools</option>
+        <option>Kitchenware</option>
+        <option>Books</option>
+        <option>Games</option>
+        <option>Tools</option>
       </select>
       <br>
       <button class="btn btn-lg btn-primary btn-block" style="background-color: white; color: #666699; border: none; box-shadow: 4px 6px 4px 0px #999;" type="button">Post </button>
@@ -27,7 +27,7 @@
         console.log(category);
         $.ajax({
             url: '/newpost',
-            data: $('form').serialize(),
+            data: {'title': title, 'value': value, 'category': category},
             type: 'POST',
             success: function(response) {
                 console.log(response);
