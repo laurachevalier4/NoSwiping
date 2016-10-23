@@ -16,6 +16,10 @@ def before_request():
 def index():
     return render_template("index.html")
 
+@app.route('/newPost')
+def newPost():
+    return render_template('newPost.html')
+
 # Once you choose a category, show some transactions from that category
 @app.route('/categories/<category_name>')
 def category(category_name):

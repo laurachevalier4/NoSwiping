@@ -9,6 +9,10 @@ body {
   font-size: 1.15em;
 }
 
+.navbar {
+  box-shadow: 0 12px 8px 0px #999;
+}
+
 li > a:hover {
   transition-delay: .15s;
   font-size: 1.2em;
@@ -22,14 +26,15 @@ li > a:hover {
 
 .col-md-4 {
   text-align: center;
-  background-color: lightgray;
+  background-color: #f0f0f5;
   padding-left: 2em;
   padding-right: 2em;
   padding-top: 3em;
   padding-bottom: 3em;
   margin: 1em;
-  color: white;
+  color: #666699;
   font-size: 3em;
+  box-shadow: 8px 12px 8px 0px #999;
 }
 
 .col-centered {
@@ -39,4 +44,10 @@ li > a:hover {
   text-align: middle;
   /* inline-block space fix */
   vertical-align: middle;
+}
+
+.form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
