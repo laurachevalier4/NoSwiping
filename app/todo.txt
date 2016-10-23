@@ -1,0 +1,6 @@
+- Add link to newPost page
+- Fix post request error
+- Delete Profile link
+- Format category table
+- SMILE :)
+- Understand, in general. En general. Generalmente.
