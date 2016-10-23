@@ -30,8 +30,11 @@ def newpost():
         return render_template('newpost.html')
     elif request.method == 'POST':
         title = request.form['title']
+        print("Title:", title)
         value = request.form['value']
+        print("Value:", value)
         category = request.form['category']
+        print("Category:", category)
         userid = current_user.id
         new_post = model.Listing(seller_id=userid, buyer_id=0, title=title, category=category, cost=value)
         db.session.add(new_post)
