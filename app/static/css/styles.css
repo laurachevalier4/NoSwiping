@@ -9,7 +9,7 @@ body {
   font-size: 1.15em;
 }
 
-a:hover {
+li > a:hover {
   transition-delay: .15s;
   font-size: 1.2em;
 }
@@ -20,24 +20,23 @@ a:hover {
   text-align: center;
 }
 
-.col-centered {
-    display: inline-block;
-    float: none;
-    /* reset the text-align */
-    text-align: left;
-    /* inline-block space fix */
-    margin-right:-4px;
-}
-
-.col-md-3 {
-  justify-content: center;
+.col-md-4 {
   text-align: center;
   background-color: lightgray;
   padding-left: 2em;
   padding-right: 2em;
-  padding-top: 5em;
-  padding-bottom: 5em;
+  padding-top: 3em;
+  padding-bottom: 3em;
   margin: 1em;
   color: white;
-  font-size: 2em;
+  font-size: 3em;
+}
+
+.col-centered {
+  display: inline-block;;
+  float: none;
+  /* reset the text-align */
+  text-align: middle;
+  /* inline-block space fix */
+  vertical-align: middle;
 }
