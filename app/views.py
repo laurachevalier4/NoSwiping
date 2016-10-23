@@ -32,12 +32,12 @@ def newpost():
         title = request.form['title']
         value = request.form['value']
         category = request.form['category']
-        userid = current_user.id
+        userid = 1
         new_post = model.Listing(seller_id=userid, buyer_id=0, title=title, category=category, cost=value)
         db.session.add(new_post)
         db.session.commit()
         post = model.Listing.query.all().filter_by(seller_id=userid, title=title)
-        return json.dumps({'status':'OK', 'data':post});
+        return "All good"
 
 
 # Once you choose a category, show some transactions from that category
