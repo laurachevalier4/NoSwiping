@@ -45,18 +45,6 @@ def newpost():
         post = Listing.query.filter_by(title=title).first()
         return "All good"
 
-
-# Once you choose a category, show some transactions from that category
-# @app.route('/categories/<category_name>')
-# def category(category_name):
-#     listings = model.Listing.query.filter_by(category = category_name).limit(20).all()
-#
-#     numOfListings = len(listings)
-#     return render_template("category.html",
-#                     category_name = category_name,
-#                     numOfListings = numOfListings,
-#                     listings = listings)
-
 # Once you choose a category, show some transactions from that category
 @app.route('/categories/<category_name>', defaults={'page': 1})
 @app.route('/categories/<category_name>/<int:page>')
