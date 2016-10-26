@@ -95,3 +95,10 @@ def search_results(query):
     return render_template('search_results.html',
                            query=query,
                            results=results)
+
+@app.route('/profile/<user_id>', methods=['GET'])
+def profile():
+    if user_id != current_user.id:
+        user = model.User.query.filter(User.id == user_id).one()
+    else: user = current_user
+    return render_template('profile.html', user=user)

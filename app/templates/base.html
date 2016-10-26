@@ -20,7 +20,7 @@
               <!--<li><img href="../static/img/fox.png" width="10" height="10"></li>-->
               <li><a style="font-size: 1.7em; color: #666699;" href="{{ url_for('index') }}">Don't Swipe <span style="color: #8585ad; font-size: 1em;"> . . . Just Borrow</span></a></li>
               <li><a style="color: #8585ad;" href="{{ url_for('index') }}">Home</a></li>
-              <li><a style="color: #8585ad;" href="#">Profile</a></li>
+              <li><a style="color: #8585ad;" href="{{ url_for('profile') }}/{{current_user.id}}">Profile</a></li>
               <li><a style="color: #8585ad;" href="{{ url_for('newpost') }}">New Listing</a></li>
             </ul>
             <form class="navbar-form navbar-left" action="{{ url_for('search') }}" method="post" name="search">

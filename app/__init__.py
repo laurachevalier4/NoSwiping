@@ -22,6 +22,9 @@ lm.login_message = lazy_gettext('Please log in to access this page.')
 # TODO: Figure out login w/o using OpenID like Miguel does
 babel = Babel(app)
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 class CustomJSONEncoder(JSONEncoder):
     """This class adds support for lazy translation texts to Flask's
