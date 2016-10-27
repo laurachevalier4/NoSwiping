@@ -16,15 +16,6 @@ body {
   box-shadow: 0 12px 8px 0px #999;
 }
 
-li >a:link {
-  font-size: 1em;
-}
-
-li >a:hover {
-  transition-delay: .15s;
-  font-size: 1.1em;
-}
-
 .categories-grid {
   background-color: white;
   justify-content: center;
@@ -99,4 +90,18 @@ img {
 #login {
   width: 40%;
   margin: auto;
+}
+
+#register {
+  width: 40%;
+  margin: auto;
+}
+
+li >a:link {
+  font-size: 1em;
+}
+
+li >a:hover {
+  transition-delay: .15s;
+  color: #666699 !important;
 }

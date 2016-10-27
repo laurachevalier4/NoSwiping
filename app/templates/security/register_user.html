@@ -10,7 +10,7 @@
     }
 </style>
 
-<h2 class="text-center login-header">Register Your StuffExchange Account</h2>
+<div id="register"><h2 class="text-center login-header">Register your StuffExchange Account</h2></div>
 
 <div class="row">
     <div class="well col-xs-4 col-xs-offset-4">
@@ -31,8 +31,7 @@
             </div>
             {% if register_user_form.password_confirm %}
             <div class="input-group">
-                {{ render_naked_field(register_user_form.password_confirm, class_="form-control", placeholder="Confirm
-                Password",
+                {{ render_naked_field(register_user_form.password_confirm, class_="form-control", placeholder="Confirm Password",
                 type="password") }}
             </div>
             {% endif %}

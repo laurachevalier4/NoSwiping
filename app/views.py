@@ -95,9 +95,6 @@ def search_results(query):
                            query=query,
                            results=results)
 
-@app.route('/profile/<user_id>', methods=['GET'])
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    if user_id != current_user.id:
-        user = model.User.query.filter(User.id == user_id).one()
-    else: user = current_user
-    return render_template('profile.html', user=user)
+    return render_template('profile.html', user=current_user, public=False)
