@@ -105,3 +105,8 @@ li >a:hover {
   transition-delay: .15s;
   color: #666699 !important;
 }
+
+#profile {
+  width: 80%;
+  margin: auto;
+}
