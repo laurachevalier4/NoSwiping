@@ -2,10 +2,10 @@ import os
 from flask import Flask
 from flask.json import JSONEncoder
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager, current_user
 from flask.ext.babel import Babel, lazy_gettext
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
+from flask.ext.security.signals import user_registered
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -15,16 +15,8 @@ db = SQLAlchemy(app)
 from app import views, model
 from model import User, Role
 
-lm = LoginManager()
-lm.init_app(app)
-lm.login_view = 'login'
-lm.login_message = lazy_gettext('Please log in to access this page.')
 # TODO: Figure out login w/o using OpenID like Miguel does
 babel = Babel(app)
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
 
 class CustomJSONEncoder(JSONEncoder):
     """This class adds support for lazy translation texts to Flask's
@@ -42,7 +34,7 @@ app.json_encoder = CustomJSONEncoder
 
 # Setup Flask_Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, user_datastore)
+app.security = Security(app, user_datastore, confirm_register_form=forms.ExtendedConfirmForm, register_form=forms.ExtendedRegisterForm)
 
 @app.before_first_request
 def before_first_request():

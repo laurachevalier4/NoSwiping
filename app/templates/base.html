@@ -18,9 +18,15 @@
           <div style="padding: 1.2em;" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <!--<li><img href="../static/img/fox.png" width="10" height="10"></li>-->
-              <li><a style="font-size: 1.7em; color: #666699;" href="{{ url_for('index') }}">Don't Swipe <span style="color: #8585ad; font-size: 1em;"> . . . Just Borrow</span></a></li>
+              <li><a style="font-size: 1.7em; color: #666699;" href="{{ url_for('index') }}">StuffExchange<span style="color: #8585ad; font-size: 1em;"></span></a></li>
+              {% if current_user.is_authenticated %}
+              <li><a href="{{ url_for('profile') }}/{{current_user.id}}">{{ current_user.name }}</a></li>
+              <li><a href="{{ url_for('security.logout') }}">Logout</a></li>
+              {% else %}
+              <li><a href="{{ url_for('security.login') }}">Login</a></li>
+              <li><a href="{{ url_for('security.register') }}">Register</a></li>
+              {% endif %}
               <li><a style="color: #8585ad;" href="{{ url_for('index') }}">Home</a></li>
-              <li><a style="color: #8585ad;" href="{{ url_for('profile') }}/{{current_user.id}}">Profile</a></li>
               <li><a style="color: #8585ad;" href="{{ url_for('newpost') }}">New Listing</a></li>
             </ul>
             <form class="navbar-form navbar-left" action="{{ url_for('search') }}" method="post" name="search">

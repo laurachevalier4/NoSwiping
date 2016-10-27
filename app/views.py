@@ -2,9 +2,8 @@ from app import app
 from app import model, db
 from flask import render_template, flash, redirect, session, url_for, request, \
     g, jsonify, abort
-from flask.ext.login import login_user, logout_user, current_user, \
-    login_required
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.security import login_required, current_user
 from model import Listing
 
 from pagination import Pagination, get_listings_for_page, url_for_other_page

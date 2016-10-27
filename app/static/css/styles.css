@@ -85,3 +85,18 @@ img {
   margin: 5em;
   margin-bottom: 13em;
 }
+
+.login-header {
+  background-color: white;
+  color: #666699;
+  padding: 1em;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #f0f0f5;
+  border-width: thick;
+}
+
+#login {
+  width: 40%;
+  margin: auto;
+}
