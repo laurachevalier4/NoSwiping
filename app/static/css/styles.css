@@ -1,47 +1,81 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: Volkorn;
-  background-color: white;
-  background-image: url('../img/foxtile.jpg');
-  background-repeat: repeat;
-  background-size: 115px;
+  font-family: "Bookman";
+  background-color: rgba(200,150,240,.1);
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-.container-fluid * {
-  background-color: #f0f0f5;
-  color: gray;
-  font-size: 1.15em;
+#main {
+  align-items: center;
+  margin-top: 8%;
 }
 
-.navbar {
-  box-shadow: 0 12px 8px 0px #999;
+.header {
+  color: #666699;
+  font-size: 1.6em;
+  text-align: center;
 }
 
-li >a:link {
-  font-size: 1em;
+.site-title {
+  font-size: 2em;
+  color: #666699;
+  padding-right: 1em;
 }
 
-li >a:hover {
-  transition-delay: .15s;
-  font-size: 1.1em;
+.nav-items {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding: 0;
+  padding-top: .2em;
+  font-size: 1.5em;
+}
+
+.navbar-form {
+  /* width: 100%; */
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.nav-item {
+  color: #8585ad;
+  padding-left: .4em;
+  padding-right: .4em;
 }
 
 .categories-grid {
-  background-color: white;
   justify-content: center;
   text-align: center;
 }
 
 .col-md-4 {
   text-align: center;
-  background-color: #fcfcfc;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-top: 3em;
-  padding-bottom: 3em;
+  /* background-color: #fcfcfc; */
+  padding-top: 2em;
+  padding-bottom: 2em;
   margin: 1em;
+  font-size: 2em;
+  /* box-shadow: 8px 12px 8px 0px #999; */
+}
+
+.category {
   color: #666699;
-  font-size: 3em;
-  box-shadow: 8px 12px 8px 0px #999;
 }
 
 .col-centered {
@@ -56,6 +90,7 @@ li >a:hover {
 .form-group {
   background-color: white;
 }
+
 th {
   color: #666699;
   background-color: white;
@@ -84,4 +119,9 @@ img {
   float: none;
   margin: 5em;
   margin-bottom: 13em;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
 }

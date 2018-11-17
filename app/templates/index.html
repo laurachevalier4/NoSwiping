@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container">
-    <span class="categories-grid">
-      <div class="row">
-        <a href="/categories/Kitchenware"><div class="col-md-4 col-centered">Kitchenware</div></a>
-        <a href="categories/Books"><div class="col-md-4 col-centered">Books</div></a>
+    <div class="categories-grid">
+      <div class="col-md-4 col-centered">
+        <a class="category" href="/categories/Kitchenware"><div>Kitchenware</div></a>
+        <a class="category" href="categories/Books"><div>Books</div></a>
+        <a class="category" href="/categories/Games"><div>Games</div></a>
+        <a class="category" href="categories/Tools"><div>Tools</div></a>
       </div>
-      <div class="row">
-        <a href="/categories/Games"><div class="col-md-4 col-centered">Games</div></a>
-        <a href="categories/Tools"><div class="col-md-4 col-centered">Tools</div></a>
-      </div>
-    </span>
+    </div>
   </div>
 {% endblock %}
