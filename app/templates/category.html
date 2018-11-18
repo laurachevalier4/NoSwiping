@@ -1,32 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-     <h1 style="color: #666699;">{{ numOfListings }} listings found for the  {{ category_name }} category!</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th> Seller </th>
-                <th> Buyer </th>
-                <th> Transaction Title </th>
-                <th> Category </th>
-                <th> Cost </th>
-                <th> Date Listed </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for listing in listings %}
-            <tr>
-                <td> {{ listing.seller_id }}</td>
-                <td> {{ listing.buyer_id }} </td>
-                <td> {{ listing.title }} </td>
-                <td> {{ listing.category }} </td>
-                <td> {{ listing.cost }} </td>
-                <td> {{ listing.date_listed }} </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+<div class="listings container">
+   <h2 class="header">{{ numOfListings }} listings found for the  {{ category_name }} category:</h2>
+   <div class="frame">
+     <table class="table table-hover">
+       <thead>
+         <tr>
+           <th> Seller </th>
+           <th> Buyer </th>
+           <th> Transaction Title </th>
+           <th> Category </th>
+           <th> Cost </th>
+           <th> Date Listed </th>
+         </tr>
+       </thead>
+       <tbody>
+         {% for listing in listings %}
+         <tr>
+           <td> {{ listing.seller_id }}</td>
+           <td> {{ listing.buyer_id }} </td>
+           <td> {{ listing.title }} </td>
+           <td> {{ listing.category }} </td>
+           <td> {{ listing.cost }} </td>
+           <td> {{ listing.date_listed }} </td>
+         </tr>
+         {% endfor %}
+       </tbody>
+     </table>
+   </div>
+  </div>
 
 {% endblock %}
 

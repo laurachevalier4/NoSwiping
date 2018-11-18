@@ -101,9 +101,14 @@ a {
 .frame {
   margin: 1em;
   border: 3px solid rgba(94, 90, 98, 1);
+  background-color: white;
 }
 
 .form-container .frame {
+  padding: 1em;
+}
+
+.listings .frame {
   padding: 1em;
 }
 
@@ -134,15 +139,26 @@ th {
   font-size: 1.2em;
 }
 
-table {
-  border-style: solid;
-  border-radius: 2px;
+table, .table {
+  border: 3px solid rgba(94, 90, 98, 1);
+  margin-bottom: 0;
+}
+
+thead {
+  font-size: 1.2em;
+}
+
+tbody {
+  background-color: white;
 }
 
 tr, td {
-  background-color: #f0f0f5;
   color: #666699;
-  font-size: 1.1em;
+  font-size: 1.2em;
+}
+
+tr:hover {
+  cursor: pointer;
 }
 
 .form {
@@ -192,4 +208,8 @@ a:focus, a:active {
   width: 100%;
   margin: auto;
   border: 3px solid rgba(94, 90, 98, 1);
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+   outline: 0;
 }
