@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Slabo+27px');
+
 html {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: "Bookman";
-  background-color: rgba(200,150,240,.1);
+  background-color: rgba(220,220,220,.2);
   margin: 0;
   padding: 0;
   width: 100%;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 
 #main {
@@ -20,7 +22,7 @@ body {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid rgb(230,230,230);
-  color: darkgray;
+  color: rgba(94, 90, 98, 1);
   outline: none;
 }
 
@@ -33,13 +35,13 @@ body {
 .header {
   color: #666699;
   font-size: 1.6em;
-  text-align: center;
 }
 
 .site-title {
   font-size: 2em;
   color: #666699;
   padding-right: 1em;
+  font-family: 'Slabo 27px', serif;
 }
 
 .nav-items {
@@ -47,12 +49,13 @@ body {
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
-  margin-left: 1em;
-  margin-right: 1em;
-  padding: 0;
+  padding-left: .5em;
+  padding-right: .5em;
   padding-top: .2em;
+  padding-bottom: .2em;
   font-size: 1.5em;
-  border-bottom: 1px solid rgb(230,230,230);
+  border-bottom: 3px solid rgba(94, 90, 98, 1);
+  background-color: white;
 }
 
 .navbar-form {
@@ -68,29 +71,48 @@ body {
   margin-right: 1em;
 }
 
-.nav-item {
+.nav-item, .search {
   color: #8585ad;
   padding-left: .4em;
   padding-right: .4em;
 }
 
-.categories-grid {
-  justify-content: center;
-  text-align: center;
+a {
+  transition: .5s;
 }
 
-.col-md-4 {
+.categories {
+  justify-content: center;
   text-align: center;
-  /* background-color: #fcfcfc; */
+  background-color: white;
+  border: 3px solid rgba(94, 90, 98, 1);
+  width: 30%;
+  margin: auto;
+}
+
+.categories-list {
+  text-align: center;
   padding-top: 2em;
   padding-bottom: 2em;
   margin: 1em;
   font-size: 2em;
-  /* box-shadow: 8px 12px 8px 0px #999; */
 }
 
-.category {
+.frame {
+  margin: 1em;
+  border: 3px solid rgba(94, 90, 98, 1);
+}
+
+.form-container .frame {
+  padding: 1em;
+}
+
+.site-title:hover, .category {
   color: #666699;
+}
+
+.nav-item:hover, .category:hover {
+  color: #333377;
 }
 
 .col-centered {
@@ -125,9 +147,29 @@ tr, td {
 
 .form {
   display: inline-block;
-  margin-left: 5em;
-  margin-right: auto;
-  width: 60%;
+  margin: auto;
+  justify-content: center;
+  font-size: 1.5em;
+  background-color: white;
+  padding: 2em;
+  border: 3px solid rgba(94, 90, 98, 1);
+}
+
+.form-control,.form-control:focus {
+  font-size: .8em;
+  cursor: pointer;
+  -webkit-box-shadow: none;
+  outline: -webkit-focus-ring-color auto 0px;
+}
+
+option {
+  font-size: 1em;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 img {
@@ -139,4 +181,15 @@ img {
 a:hover {
   text-decoration: none;
   cursor: pointer;
+}
+
+a:focus, a:active {
+  text-decoration: none;
+}
+
+.post-btn {
+  font-size: 1em;
+  width: 100%;
+  margin: auto;
+  border: 3px solid rgba(94, 90, 98, 1);
 }

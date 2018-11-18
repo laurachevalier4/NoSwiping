@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-  <form class="form-signin form" action="/newPost" method="post" role="form">
-    <h2 class="form-signin-heading" style="color: #666699">Create a New Listing</h2>
-      <input class="form-input" type="email" id="title" class="form-control" placeholder="Title" required autofocus><br>
-      <input class="form-input" type="email" id="value" class="form-control" placeholder="Value" required>
-      <select class="form-input form-control" id="categories">
-        <option>Choose a Category</option>
-        <option>Kitchenware</option>
-        <option>Books</option>
-        <option>Games</option>
-        <option>Tools</option>
-      </select>
-      <br>
-      <button class="btn btn-lg btn-primary btn-block" style="border: none;" type="button">Post </button>
-    </form>
+  <div class="form-container">
+    <div class="frame">
+      <form class="form-signin form" action="/newPost" method="post" role="form">
+        <h2 class="header">Create a New Listing</h2>
+          <input class="form-input" type="email" id="title" class="form-control" placeholder="Title" required autofocus><br>
+          <input class="form-input" type="email" id="value" class="form-control" placeholder="Value" required><br><br>
+          <span class="form-input">Category:</span><br>
+          <select class="form-input form-control" id="categories">
+            <option>Choose a Category</option>
+            <option>Kitchenware</option>
+            <option>Books</option>
+            <option>Games</option>
+            <option>Tools</option>
+          </select>
+          <br>
+          <button class="btn post-btn" type="button">Post </button>
+        </form>
+      </div>
+    </div>
     <!--<img src="../static/img/fox.png" width="200" height="150" alt="Don't Steal... Just Borrow" style="box-shadow: 4px 6px 4px 0px #999;">-->
     <script type="text/javascript">
       $(function() {
