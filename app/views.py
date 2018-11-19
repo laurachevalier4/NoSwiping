@@ -85,7 +85,13 @@ def search_results(query):
                            query=query,
                            results=results)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    print("form {} {}".format(form.username.data, form.remember_me.data))
+    print("on submit {}".format(form.validate()))
+    if form.validate_on_submit():
+        print('Login requested for user {}, remember_me={}'.format(
+        form.username.data, form.remember_me.data))
+        return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)

@@ -6,17 +6,23 @@
     <div class="frame">
       <form class="form form-signin" action="" method="post" novalidate>
         <h2 class="header">Sign In</h2>
-          {{ form.hidden_tag() }}
-          <p>
-              {{ form.username.label }}<br>
-              {{ form.username(size=32) }}
-          </p>
-          <p>
-              {{ form.password.label }}<br>
-              {{ form.password(size=32) }}
-          </p>
-          <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-          <button class="btn post-btn" type="submit">Sign In</button>
+        {{ form.hidden_tag() }}
+        <p>
+          {{ form.username.label }}<br>
+          {{ form.username(size=32) }}<br>
+          {% for error in form.username.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.password.label }}<br>
+          {{ form.password(size=32) }}<br>
+          {% for error in form.password.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <button class="btn post-btn" type="submit">Sign In</button>
       </form>
     </div>
   </div>
