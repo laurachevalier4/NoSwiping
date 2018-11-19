@@ -1,7 +1,7 @@
 import datetime
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
-from flask.ext.security import UserMixin, RoleMixin
+from flask_security import UserMixin, RoleMixin
 from sqlalchemy import select, func, or_, and_
 from app import app, db
 
@@ -11,7 +11,7 @@ if sys.version_info >= (3, 0):
     enable_search = False
 else:
     enable_search = True
-    import flask.ext.whooshalchemy as whooshalchemy
+    import flask_whooshalchemy as whooshalchemy
 
 def dump_datetime(value):
     if value is None:
