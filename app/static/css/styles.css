@@ -77,7 +77,7 @@ body {
   padding-right: .4em;
 }
 
-#noresults {
+.noresults {
   text-align: center;
   margin-top: 15%;
 }
