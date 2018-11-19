@@ -10,7 +10,7 @@ from model import Listing
 from pagination import Pagination, get_listings_for_page, url_for_other_page
 from config import MAX_SEARCH_RESULTS
 from datetime import datetime
-from forms import SearchForm
+from forms import SearchForm, LoginForm
 
 PER_PAGE = 20       # Number of results per page
 
@@ -64,8 +64,8 @@ def category(category_name, page):
     return render_template('category.html',
                            pagination=pagination,
                            listings=listings,
-                           category_name = category_name,
-                           numOfListings = count)
+                           category_name=category_name,
+                           num_listings=count)
 
 # The page for a specific transaction
 @app.route('/transactions/<transaction_id>')
@@ -84,3 +84,8 @@ def search_results(query):
     return render_template('search_results.html',
                            query=query,
                            results=results)
+
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Sign In', form=form)
