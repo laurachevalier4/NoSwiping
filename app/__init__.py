@@ -1,10 +1,10 @@
 import os
 from flask import Flask
 from flask.json import JSONEncoder
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager, current_user
-from flask.ext.babel import Babel, lazy_gettext
-from flask.ext.security import Security, SQLAlchemyUserDatastore, \
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, current_user
+from flask_babel import Babel, lazy_gettext
+from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 
 app = Flask(__name__)

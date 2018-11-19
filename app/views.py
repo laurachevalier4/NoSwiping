@@ -2,9 +2,9 @@ from app import app
 from app import model, db
 from flask import render_template, flash, redirect, session, url_for, request, \
     g, jsonify, abort
-from flask.ext.login import login_user, logout_user, current_user, \
+from flask_login import login_user, logout_user, current_user, \
     login_required
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from model import Listing
 
 from pagination import Pagination, get_listings_for_page, url_for_other_page
@@ -36,14 +36,15 @@ def newpost():
         print("Title:", str(title))
         value = request.form.get('value')
         print("Value:", int(value))
-        category = request.form.get('category')
+        category = request.form.get('categories')
         print("Category:", str(category))
         userid = 1
         new_post = model.Listing(seller_id=userid, buyer_id=0, title=title, category=category, cost=value)
         db.session.add(new_post)
         db.session.commit()
         post = Listing.query.filter_by(title=title).first()
-        return "All good"
+        print(url_for('index'))
+        return redirect(url_for('index'))
 
 # Once you choose a category, show some transactions from that category
 @app.route('/categories/<category_name>', defaults={'page': 1})
