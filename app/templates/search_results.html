@@ -3,6 +3,7 @@
 
 {% block content %}
   <div class="container">
+    {% if results %}
     <h2 class="header">Search results for "{{ query }}":</h2>
     <div class="frame">
       <table class="table table-hover">
@@ -30,6 +31,9 @@
         </tbody>
       </table>
     </div>
+    {% else %}
+    <h2 id="noresults">No results for "{{ query }}".</h2>
+    {% endif %}
   </div>
 
 {% endblock %}

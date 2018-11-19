@@ -77,6 +77,11 @@ body {
   padding-right: .4em;
 }
 
+#noresults {
+  text-align: center;
+  margin-top: 15%;
+}
+
 a {
   transition: .5s;
 }
@@ -104,7 +109,7 @@ a {
   background-color: white;
 }
 
-.form-container .frame {
+.form-container .frame, .container .frame {
   padding: 1em;
 }
 
@@ -144,8 +149,9 @@ table, .table {
   margin-bottom: 0;
 }
 
-thead {
+thead, thead>tr:hover {
   font-size: 1.2em;
+  cursor: default;
 }
 
 tbody {
