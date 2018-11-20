@@ -88,8 +88,6 @@ def search_results(query):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print("form {} {}".format(form.username.data, form.remember_me.data))
-    print("on submit {}".format(form.validate()))
     if form.validate_on_submit():
         print('Login requested for user {}, remember_me={}'.format(
         form.username.data, form.remember_me.data))
