@@ -2,8 +2,9 @@ import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_security import UserMixin, RoleMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import select, func, or_, and_
-from app import app, db
+from app import app, db, lm
 
 # Import whooshalchemy if you can so you can enable search
 import sys
@@ -12,6 +13,10 @@ if sys.version_info >= (3, 0):
 else:
     enable_search = True
     import flask_whooshalchemy as whooshalchemy
+
+@lm.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 def dump_datetime(value):
     if value is None:
@@ -43,7 +48,7 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean(), default=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(120))
+    password_hash = db.Column(db.String(128))
     about_me = db.Column(db.String(255))
     location = db.Column(db.Integer)
     points = db.Column(db.Integer)
@@ -83,6 +88,12 @@ class User(db.Model, UserMixin):
             'points': self.points,
         }
         return {col: cols.get(col, None) for col in columns}
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Listing(db.Model):
     __tablename__ = 'listing'

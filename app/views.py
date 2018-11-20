@@ -1,5 +1,6 @@
 from app import app
 from app import model, db
+from app.model import User
 from flask import render_template, flash, redirect, session, url_for, request, \
     g, jsonify, abort
 from flask_login import login_user, logout_user, current_user, \
@@ -87,9 +88,15 @@ def search_results(query):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        print('Login requested for user {}, remember_me={}'.format(
-        form.username.data, form.remember_me.data))
+        user = User.query.filter_by(username=form.username.data).first()
+        print("user: {}".format(user))
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
