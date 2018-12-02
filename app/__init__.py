@@ -2,21 +2,21 @@ import os
 from flask import Flask
 from flask.json import JSONEncoder
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 from flask_babel import Babel, lazy_gettext
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
+lm = LoginManager(app)
 
 from app import views, model
 from model import User, Role
 
-lm = LoginManager()
-lm.init_app(app)
 lm.login_view = 'login'
 lm.login_message = lazy_gettext('Please log in to access this page.')
 # TODO: Figure out login w/o using OpenID like Miguel does
@@ -49,7 +49,7 @@ def before_first_request():
     testuser2 = {
         'name': 'Laura Chevalier',
         'username': 'LauraIsCool',
-        'password': 'secretcode',
+        'password_hash': generate_password_hash('secretcode'),
         'email': 'xxx@nyu.edu',
         'active': True
     }
@@ -57,7 +57,7 @@ def before_first_request():
     testuser3 = {
         'name': 'Vincent Chov',
         'username': 'VincentIsCool2',
-        'password': 'muffin',
+        'password_hash': generate_password_hash('muffin'),
         'email': 'yyy@nyu.edu',
         'active': True
     }

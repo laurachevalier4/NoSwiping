@@ -7,6 +7,7 @@ from flask_login import login_user, logout_user, current_user, \
     login_required
 from flask_sqlalchemy import SQLAlchemy
 from model import Listing
+from urlparse import urlparse, urljoin
 
 from pagination import Pagination, get_listings_for_page, url_for_other_page
 from config import MAX_SEARCH_RESULTS
@@ -24,10 +25,19 @@ def before_request():
 @app.route('/')
 @app.route('/index')
 @app.route('/categories')
+@login_required
 def index():
     return render_template("index.html")
 
+# taken from http://flask.pocoo.org/snippets/62/
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+           ref_url.netloc == test_url.netloc
+
 @app.route('/newpost', methods=['GET', 'POST'])
+@login_required
 def newpost():
     if request.method == 'GET':
         return render_template('newpost.html')
@@ -40,7 +50,8 @@ def newpost():
         category = request.form.get('categories')
         print("Category:", str(category))
         userid = 1
-        new_post = model.Listing(seller_id=userid, buyer_id=0, title=title, category=category, cost=value)
+        new_post = model.Listing(seller_id=userid, buyer_id=0, title=title, \
+            pcategory=category, cost=value)
         db.session.add(new_post)
         db.session.commit()
         post = Listing.query.filter_by(title=title).first()
@@ -50,6 +61,7 @@ def newpost():
 # Once you choose a category, show some transactions from that category
 @app.route('/categories/<category_name>', defaults={'page': 1})
 @app.route('/categories/<category_name>/<int:page>')
+@login_required
 def category(category_name, page):
     allListings = model.Listing.query.filter_by(category = category_name).all()
     count = len(allListings)
@@ -70,16 +82,19 @@ def category(category_name, page):
 
 # The page for a specific transaction
 @app.route('/transactions/<transaction_id>')
+@login_required
 def transaction(transaction_id):
     return "You chose the %s transaction!" %(transaction_id)
 
 @app.route('/search', methods=['POST'])
+@login_required
 def search():
     if not g.search_form.validate_on_submit():
         return redirect(url_for('index'))
     return redirect(url_for('search_results', query=g.search_form.search.data))
 
 @app.route('/search_results/<query>')
+@login_required
 def search_results(query):
     results = model.Listing.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
     return render_template('search_results.html',
@@ -91,6 +106,9 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
+    next = request.args.get('next')
+    if not is_safe_url(next):
+        return flask.url_for('index')
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         print("user: {}".format(user))
@@ -98,5 +116,11 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        return redirect(next or url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
+
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
