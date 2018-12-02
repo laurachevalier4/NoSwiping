@@ -7,6 +7,7 @@ from flask_babel import Babel, lazy_gettext
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from werkzeug.security import generate_password_hash
+import babel as b
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -22,6 +23,14 @@ lm.login_message = lazy_gettext('Please log in to access this page.')
 # TODO: Figure out login w/o using OpenID like Miguel does
 babel = Babel(app)
 
+def format_datetime(value, format='medium'):
+    if format == 'full':
+        format="EEEE, d MMMM y 'at' HH:mm"
+    elif format == 'medium':
+        format="EE dd.MM.y HH:mm"
+    return b.dates.format_datetime(value, format)
+
+app.jinja_env.filters['datetime'] = format_datetime
 
 class CustomJSONEncoder(JSONEncoder):
     """This class adds support for lazy translation texts to Flask's

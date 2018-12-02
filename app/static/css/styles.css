@@ -217,15 +217,18 @@ a:focus, a:active {
 /************* PROFILE *************/
 .profile {
   border: 3px solid rgba(94, 90, 98, 1);
+  font-size: 1.3em;
 }
 
-.profile-listings { 
+.profile-listings {
   overflow-y: scroll;
   max-height: 20em;
+  word-wrap: hyphen;
 }
 
-.profile-listing p {
+.profile-listing {
   display: inline-block;
+  margin-right: 1.5em;
 }
 
 .profile .frame {

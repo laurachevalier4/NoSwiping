@@ -4,7 +4,7 @@
     <div class="frame">
       <div class="container">
         <div class="col-md-4">
-          <h1>{{ user.name }}</h1>
+          <h1 class="header">{{ user.name }}</h1>
           <h4>{{ user.username }}</h4>
           <div id="profile-image-container">
             <div class="frame">
@@ -13,19 +13,19 @@
           </div>
         </div>
         <div class="profile-listings col-md-4">
-          <h2>Lending</h2>
+          <h2 class="header">Lending</h2>
           {% for listing in listings %}
           <div class="profile-listing">
-            <span>{{ listing.title }}<span><span> on {{ listing.date_listed }}</span>
+            <span>{{ listing.title }}<span><span> on {{ listing.date_listed|datetime('full') }}</span>
           </div>
         {% endfor %}
         </div>
         <div class="profile-listings col-md-4">
-          <h2>Borrowed</h2>
+          <h2 class="header">Borrowed</h2>
           {% for borrow in borrows %}
           <div class="profile-listing">
             <!-- Replace date_listed with date_borrowed -->
-            <span>{{ borrow.title }}<span><span> on {{ borrow.date_listed }}</span>
+            <span>{{ borrow.title }}<span><span> on {{ borrow.date_listed|datetime('full') }}</span>
           </div>
           {% endfor %}
         </div>
