@@ -219,6 +219,11 @@ a:focus, a:active {
   border: 3px solid rgba(94, 90, 98, 1);
 }
 
+.profile-listings { 
+  overflow-y: scroll;
+  max-height: 20em;
+}
+
 .profile-listing p {
   display: inline-block;
 }
