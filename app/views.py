@@ -111,9 +111,11 @@ def profile(user_id=None):
     else:
         user = User.query.get(user_id)
     listings = user.user_listings()
+    borrows = user.user_borrows()
     return render_template('profile.html',
                             user=user,
-                            listings=listings)
+                            listings=listings,
+                            borrows=borrows)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

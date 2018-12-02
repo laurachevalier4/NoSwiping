@@ -194,12 +194,6 @@ option {
   align-items: center;
 }
 
-img {
-  float: none;
-  margin: 5em;
-  margin-bottom: 13em;
-}
-
 a:hover {
   text-decoration: none;
   cursor: pointer;
@@ -218,4 +212,35 @@ a:focus, a:active {
 
 .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
    outline: 0;
+}
+
+/************* PROFILE *************/
+.profile {
+  border: 3px solid rgba(94, 90, 98, 1);
+}
+
+.profile-listing p {
+  display: inline-block;
+}
+
+.profile .frame {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#profile-image-container {
+  width: 85%;
+}
+
+#profile-image-container .frame {
+  padding: 1em;
+}
+
+#profile-image {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+  border: 3px solid rgba(94, 90, 98, 1);
 }

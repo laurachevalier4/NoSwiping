@@ -117,6 +117,7 @@ class Listing(db.Model):
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    # date_borrowed
 
     def __init__(self, owner_id, owner_username, title, category, cost, \
         borrower_id=None, borrower_username=None):

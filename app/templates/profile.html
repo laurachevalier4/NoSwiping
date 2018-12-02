@@ -1,8 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>{{ user.name }}</h1>
-  <h4>{{ user.username }}</h4>
-    {% for listing in listings %}
-    <h2><p>{{ listing.title }}</p></h2>
-    {% endfor %}
+  <div class="profile container">
+    <div class="frame">
+      <div class="container">
+        <div class="col-md-4">
+          <h1>{{ user.name }}</h1>
+          <h4>{{ user.username }}</h4>
+          <div id="profile-image-container">
+            <div class="frame">
+              <img id="profile-image" src="../static/img/mrbean.jpeg" alt="Mr. Bean" width="120" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h2>Lending</h2>
+          {% for listing in listings %}
+          <div class="profile-listing">
+            <span>{{ listing.title }}<span><span> on {{ listing.date_listed }}</span>
+          </div>
+        {% endfor %}
+        </div>
+        <div class="col-md-4">
+          <h2>Borrowed</h2>
+          {% for borrow in borrows %}
+          <div class="profile-listing">
+            <!-- Replace date_listed with date_borrowed -->
+            <span>{{ borrow.title }}<span><span> on {{ borrow.date_listed }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
