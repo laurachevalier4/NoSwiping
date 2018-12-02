@@ -29,7 +29,7 @@
               <td> {{ listing.title }} </td>
               <td> {{ listing.category }} </td>
               <td> {{ listing.cost }} </td>
-              <td> {{ listing.date_listed }} </td>
+              <td> {{ listing.date_listed|datetime }} </td>
           </tr>
           {% endfor %}
         </tbody>
