@@ -54,15 +54,19 @@ class User(db.Model, UserMixin):
     points = db.Column(db.Integer)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    listings = db.relationship('Listing', backref='owner', lazy='dynamic', \
+        foreign_keys='Listing.owner_id')
+    borrows = db.relationship('Listing', backref='borrower', lazy='dynamic', \
+        foreign_keys='Listing.borrower_id')
 
     def __repr__(self):
         return str(self.username)
 
-    def get_listings(self, buyer_or_seller):
-        if (buyer_or_seller == "seller"):
-            return Listing.query.all().filter(Listing.seller_id == self.id)
+    def get_listings(self, borrower_or_owner):
+        if (borrower_or_owner == "owner"):
+            return Listing.query.all().filter(Listing.owner_id == self.id)
         else:
-            return Listing.query.all().filter(Listing.buyer_id == self.id)
+            return Listing.query.all().filter(Listing.borrower_id == self.id)
 
     """
     def __init__(self, name, username, password, email, location):
@@ -74,8 +78,11 @@ class User(db.Model, UserMixin):
     """
 
     def user_listings(self):
-        # return listings for given user
-        return self.listings.filter(Listing.user_id == self.user_id).order_by(Listing.date_listed.desc()).limit(10)
+        # return listings (selling) for given user
+        return self.listings.order_by(Listing.date_listed.desc()).limit(10)
+
+    def user_borrows(self):
+        return self.borrows.order_by(Listing.date_listed.desc()).limit(10)
 
     def serialize(self, columns):
         cols = {
@@ -100,17 +107,23 @@ class Listing(db.Model):
     __searchable__ = ['title']
 
     id = db.Column(db.Integer, primary_key=True)
-    seller_id = db.Column(db.Integer)
-    buyer_id = db.Column(db.Integer)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    owner_username = db.Column(db.String(255), db.ForeignKey('user.username'))
+    borrower_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    borrower_username = db.Column(db.String(255), db.ForeignKey('user.username'), \
+        nullable=True)
     title = db.Column(db.String(255), unique=True, nullable=False)
     category = db.Column(db.String(80), nullable=False)
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    def __init__(self, seller_id, buyer_id, title, category, cost):
-        self.seller_id = seller_id
-        self.buyer_id = buyer_id
+    def __init__(self, owner_id, owner_username, title, category, cost, \
+        borrower_id=None, borrower_username=None):
+        self.owner_id = owner_id
+        self.owner_username = owner_username
+        self.borrower_id = borrower_id
+        self.borrower_username = borrower_username
         self.title = title
         self.category = category
         self.cost = cost
@@ -123,8 +136,8 @@ class Listing(db.Model):
             'cost': self.cost,
             'location': self.location,
             'date_listed': dump_datetime(self.date_listed),
-            'seller_id' : self.seller_id,
-            'buyer_id': self.buyer_id
+            'owner_id' : self.owner_id,
+            'borrower_id': self.borrower_id
         }
         return {col: cols.get(col, None) for col in columns}
 

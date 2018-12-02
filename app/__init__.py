@@ -82,8 +82,10 @@ def before_first_request():
     db.session.commit()
 
     testListing1 = {
-        'seller_id' : 1,
-        'buyer_id' : 2,
+        'owner_id' : 1,
+        'borrower_id' : 2,
+        'owner_username': 'LauraIsCool',
+        'borrower_username': 'VincentIsCool2',
         'title' : 'Cast of Jersey Shore',
         'category' : 'Tools',
         'cost' : 2
@@ -94,8 +96,10 @@ def before_first_request():
     db.session.commit()
 
     testListing2 = {
-        'seller_id' : 3,
-        'buyer_id' : 4,
+        'owner_id' : 2,
+        'borrower_id' : 1,
+        'owner_username': 'VincentIsCool2',
+        'borrower_username': 'LauraIsCool',
         'title' : 'My Little Pony',
         'category' : 'Games',
         'cost' : 30
@@ -106,8 +110,10 @@ def before_first_request():
     db.session.commit()
 
     testListing3 = {
-        'seller_id' : 5,
-        'buyer_id' : 6,
+        'owner_id' : 2,
+        'borrower_id' : 1,
+        'owner_username': 'VincentIsCool2',
+        'borrower_username': 'LauraIsCool',
         'title' : 'Magic Bullet',
         'category' : 'Kitchenware',
         'cost' : 400

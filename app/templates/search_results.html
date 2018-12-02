@@ -9,8 +9,8 @@
       <table class="table table-hover">
           <thead>
             <tr>
-              <th> Seller </th>
-              <th> Buyer </th>
+              <th> Owner </th>
+              <th> Borrower </th>
               <th> Transaction Title </th>
               <th> Category </th>
               <th> Cost </th>
@@ -20,8 +20,12 @@
           <tbody>
           {% for listing in results %}
           <tr>
-              <td> {{ listing.seller_id }}</td>
-              <td> {{ listing.buyer_id }} </td>
+              <td><a href="/profile/{{ listing.owner_id }}"> {{ listing.owner_username }}</a></td>
+              {% if listing.borrower_id %}
+                <td><a href="/profile/{{ listing.borrower_id }}"> {{ listing.borrower_username }}</a></td>
+              {% else %}
+                <td> {{ listing.borrower_username }}</td>
+              {% endif %}
               <td> {{ listing.title }} </td>
               <td> {{ listing.category }} </td>
               <td> {{ listing.cost }} </td>

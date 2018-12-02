@@ -49,9 +49,10 @@ def newpost():
         print("Value:", int(value))
         category = request.form.get('categories')
         print("Category:", str(category))
-        userid = 1
-        new_post = model.Listing(seller_id=userid, buyer_id=0, title=title, \
-            pcategory=category, cost=value)
+        userid = current_user.id
+        username= current_user.username
+        new_post = model.Listing(owner_id=userid, owner_username=username, title=title, \
+            category=category, cost=value)
         db.session.add(new_post)
         db.session.commit()
         post = Listing.query.filter_by(title=title).first()
@@ -100,6 +101,19 @@ def search_results(query):
     return render_template('search_results.html',
                            query=query,
                            results=results)
+
+@app.route('/profile/')
+@app.route('/profile/<user_id>')
+@login_required
+def profile(user_id=None):
+    if user_id is None:
+        user = current_user
+    else:
+        user = User.query.get(user_id)
+    listings = user.user_listings()
+    return render_template('profile.html',
+                            user=user,
+                            listings=listings)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
