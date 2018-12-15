@@ -4,6 +4,13 @@
     <div class="frame">
       <div class="container">
         <h1 class="header">{{ listing.title }}</h1>
+        <p>Cost: {{ listing.cost }} points</p>
+        <p>You have: {{ current_user.points }} points</p>
+        {% if current_user.points > listing.cost %}
+        <p>You have enough points!</p>
+        {% else %}
+        <p>You don't have enough points!</p>
+        {% endif %}
       </div>
     </div>
   </div>

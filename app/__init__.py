@@ -60,7 +60,8 @@ def before_first_request():
         'username': 'LauraIsCool',
         'password_hash': generate_password_hash('secretcode'),
         'email': 'xxx@nyu.edu',
-        'active': True
+        'active': True,
+        'points': 20
     }
 
     testuser3 = {
@@ -68,7 +69,8 @@ def before_first_request():
         'username': 'VincentIsCool2',
         'password_hash': generate_password_hash('muffin'),
         'email': 'yyy@nyu.edu',
-        'active': True
+        'active': True,
+        'points': 10
     }
 
     user_datastore.find_or_create_role(
@@ -120,9 +122,9 @@ def before_first_request():
 
     testListing3 = {
         'owner_id' : 2,
-        'borrower_id' : 1,
+        'borrower_id' : None,
         'owner_username': 'VincentIsCool2',
-        'borrower_username': 'LauraIsCool',
+        'borrower_username': None,
         'title' : 'Magic Bullet',
         'category' : 'Kitchenware',
         'cost' : 400
