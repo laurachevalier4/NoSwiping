@@ -10,7 +10,6 @@
           <thead>
             <tr>
               <th> Owner </th>
-              <th> Borrower </th>
               <th> Transaction Title </th>
               <th> Category </th>
               <th> Cost </th>
@@ -21,11 +20,6 @@
           {% for listing in results %}
           <tr>
               <td><a href="/profile/{{ listing.owner_id }}"> {{ listing.owner_username }}</a></td>
-              {% if listing.borrower_id %}
-                <td><a href="/profile/{{ listing.borrower_id }}"> {{ listing.borrower_username }}</a></td>
-              {% else %}
-                <td> {{ listing.borrower_username }}</td>
-              {% endif %}
               <td> {{ listing.title }} </td>
               <td> {{ listing.category }} </td>
               <td> {{ listing.cost }} </td>

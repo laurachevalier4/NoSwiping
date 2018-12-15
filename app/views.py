@@ -98,7 +98,7 @@ def search():
 @app.route('/search_results/<query>')
 @login_required
 def search_results(query):
-    results = model.Listing.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
+    results = model.Listing.query.filter(Listing.borrower_id==None).whoosh_search(query, MAX_SEARCH_RESULTS).all()
     return render_template('search_results.html',
                            query=query,
                            results=results)
