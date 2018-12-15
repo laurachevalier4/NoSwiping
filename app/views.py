@@ -64,7 +64,8 @@ def newpost():
 @app.route('/categories/<category_name>/<int:page>')
 @login_required
 def category(category_name, page):
-    allListings = model.Listing.query.filter_by(category = category_name).all()
+    allListings = model.Listing.query.filter_by(category=category_name) \
+        .filter(Listing.borrower_id==None).all()
     count = len(allListings)
 
     listings = get_listings_for_page(page, PER_PAGE, count, allListings)
@@ -101,6 +102,9 @@ def search_results(query):
     return render_template('search_results.html',
                            query=query,
                            results=results)
+
+def listing_details(listing_id):
+    return "You cho"
 
 @app.route('/profile/')
 @app.route('/profile/<user_id>')

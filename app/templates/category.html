@@ -8,8 +8,7 @@
        <thead>
          <tr>
            <th> Owner </th>
-           <th> Borrower </th>
-           <th> Transaction Title </th>
+           <th> Item Title </th>
            <th> Category </th>
            <th> Cost </th>
            <th> Date Listed </th>
@@ -18,13 +17,8 @@
        <tbody>
          {% for listing in listings %}
          <tr>
-           <td><a href="/profile/{{ listing.owner_id }}"> {{ listing.owner_username }}</a></td>
-           {% if listing.borrower_id %}
-             <td><a href="/profile/{{ listing.borrower_id }}"> {{ listing.borrower_username }}</a></td>
-           {% else %}
-             <td> {{ listing.borrower_username }}</td>
-           {% endif %}
-           <td> {{ listing.title }} </td>
+           <td><a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a></td>
+           <td><a href="#">{{ listing.title }}</a></td>
            <td> {{ listing.category }} </td>
            <td> {{ listing.cost }} </td>
            <td> {{ listing.date_listed|datetime }} </td>
