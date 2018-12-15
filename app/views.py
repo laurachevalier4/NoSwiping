@@ -86,7 +86,7 @@ def category(category_name, page):
 @app.route('/transactions/<transaction_id>')
 @login_required
 def transaction(transaction_id):
-    return "You chose the %s transaction!" %(transaction_id)
+    return "You chose the %s transaction!" % (transaction_id)
 
 @app.route('/search', methods=['POST'])
 @login_required
@@ -103,8 +103,14 @@ def search_results(query):
                            query=query,
                            results=results)
 
+@app.route('/listing/<listing_id>')
+@login_required
 def listing_details(listing_id):
-    return "You cho"
+    listing = Listing.query.get(listing_id)
+    if not listing:
+        return redirect(url_for('index'))
+    return render_template('listing_details.html',
+                            listing=listing)
 
 @app.route('/profile/')
 @app.route('/profile/<user_id>')

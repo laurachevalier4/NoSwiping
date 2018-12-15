@@ -18,7 +18,7 @@
          {% for listing in listings %}
          <tr>
            <td><a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a></td>
-           <td><a href="#">{{ listing.title }}</a></td>
+           <td><a href="/listing/{{ listing.id }}">{{ listing.title }}</a></td>
            <td> {{ listing.category }} </td>
            <td> {{ listing.cost }} </td>
            <td> {{ listing.date_listed|datetime }} </td>
