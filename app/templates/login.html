@@ -18,9 +18,18 @@
           {{ form.password.label }}<br>
           {{ form.password(size=32) }}<br>
           {% for error in form.password.errors %}
-          <span style="color: red;">[{{ error }}]</span>
+          <span style="color: red;">{{ error }}</span>
           {% endfor %}
         </p>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <p>
+            {% for message in messages %}
+            <span style="color: red;">{{ message }}</span>
+            {% endfor %}
+        </p>
+        {% endif %}
+        {% endwith %}
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <button class="btn post-btn" type="submit">Sign In</button>
       </form>
