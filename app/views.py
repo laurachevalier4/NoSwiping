@@ -123,10 +123,13 @@ def profile(user_id=None):
     else:
         user = User.query.get(user_id)
     listings = user.user_listings()
+    available_listings = filter(lambda listing: listing.borrower_id is None, listings)
+    unavailable_listings = filter(lambda listing: listing.borrower_id is not None, listings)
     borrows = user.user_borrows()
     return render_template('profile.html',
                             user=user,
-                            listings=listings,
+                            available_listings=available_listings,
+                            unavailable_listings=unavailable_listings,
                             borrows=borrows)
 
 @app.route('/login', methods=['GET', 'POST'])

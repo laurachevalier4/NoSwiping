@@ -14,11 +14,28 @@
         </div>
         <div class="profile-listings col-md-4">
           <h2 class="header">Lending</h2>
-          {% for listing in listings %}
-          <div class="profile-listing">
-            <span>{{ listing.title }}<span><span> on {{ listing.date_listed|datetime('full') }}</span>
-          </div>
-        {% endfor %}
+          {% if available_listings|length == 0 and unavailable_listings|length == 0 %}
+            <span>Not lending anything.</span>
+          {% else %}
+            {% if available_listings|length %}
+              <h3>Available</h3>
+              {% for listing in available_listings %}
+                <div class="profile-listing">
+                  <span><a href="/listing/{{ listing.id }}">{{ listing.title }}</a><span><span> on {{ listing.date_listed|datetime('full') }}</span>
+                </div>
+              {% endfor %}
+            {% endif %}
+            {% if unavailable_listings|length %}
+              <h3>Not Available</h3>
+              {% for listing in unavailable_listings %}
+                {% if listing.date_borrowed %}
+                  <div class="profile-listing">
+                    <span><a href="/listing/{{ listing.id }}">{{ listing.title }}</a><span><span> on {{ listing.date_borrowed|datetime('full') }}</span>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
         </div>
         <div class="profile-listings col-md-4">
           <h2 class="header">Borrowed</h2>
@@ -34,7 +51,7 @@
           {% for borrow in borrows %}
           <div class="profile-listing">
             <!-- Replace date_listed with date_borrowed -->
-            <span>{{ borrow.title }}<span><span> on {{ borrow.date_borrowed|datetime('full') }}</span>
+            <span><a href="/listing/{{ borrow.id }}">{{ borrow.title }}</a><span><span> on {{ borrow.date_borrowed|datetime('full') }}</span>
           </div>
           {% endfor %}
         </div>
