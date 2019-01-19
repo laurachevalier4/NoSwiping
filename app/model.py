@@ -84,6 +84,13 @@ class User(db.Model, UserMixin):
     def user_borrows(self):
         return self.borrows.order_by(Listing.date_listed.desc()).limit(10)
 
+    def borrow_listing(self, listing):
+        self.borrows.append(listing)
+        self.points -= listing.cost
+
+    def lend_listing(self, listing):
+        self.points += listing.cost
+
     def serialize(self, columns):
         cols = {
             'id': self.id,
@@ -117,10 +124,10 @@ class Listing(db.Model):
     cost = db.Column(db.Integer, nullable=True)
     location = db.Column(db.Integer)
     date_listed = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    # date_borrowed
+    date_borrowed = db.Column(db.DateTime, nullable=True)
 
     def __init__(self, owner_id, owner_username, title, category, cost, \
-        borrower_id=None, borrower_username=None):
+        borrower_id=None, borrower_username=None, date_borrowed=None):
         self.owner_id = owner_id
         self.owner_username = owner_username
         self.borrower_id = borrower_id
@@ -128,6 +135,7 @@ class Listing(db.Model):
         self.title = title
         self.category = category
         self.cost = cost
+        self.date_borrowed = date_borrowed
 
     def serialize(self, columns):
         cols = {
@@ -141,6 +149,11 @@ class Listing(db.Model):
             'borrower_id': self.borrower_id
         }
         return {col: cols.get(col, None) for col in columns}
+
+    def mark_borrowed(self, borrower):
+        self.borrower_id = borrower.id
+        self.borrower_username = borrower.username
+        self.date_borrowed = datetime.datetime.utcnow()
 
 if enable_search:
     whooshalchemy.whoosh_index(app, Listing)

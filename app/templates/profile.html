@@ -22,10 +22,19 @@
         </div>
         <div class="profile-listings col-md-4">
           <h2 class="header">Borrowed</h2>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <p>
+              {% for message in messages %}
+              <span style="color: #666699;">{{ message }}</span>
+              {% endfor %}
+          </p>
+          {% endif %}
+          {% endwith %}
           {% for borrow in borrows %}
           <div class="profile-listing">
             <!-- Replace date_listed with date_borrowed -->
-            <span>{{ borrow.title }}<span><span> on {{ borrow.date_listed|datetime('full') }}</span>
+            <span>{{ borrow.title }}<span><span> on {{ borrow.date_borrowed|datetime('full') }}</span>
           </div>
           {% endfor %}
         </div>

@@ -11,7 +11,6 @@ from urlparse import urlparse, urljoin
 
 from pagination import Pagination, get_listings_for_page, url_for_other_page
 from config import MAX_SEARCH_RESULTS
-from datetime import datetime
 from forms import SearchForm, LoginForm
 
 PER_PAGE = 20       # Number of results per page
@@ -118,6 +117,9 @@ def listing_details(listing_id):
 def profile(user_id=None):
     if user_id is None:
         user = current_user
+        print(request.args)
+        if request.args.get('borrow_success'):
+            flash('Congrats on your new borrow!')
     else:
         user = User.query.get(user_id)
     listings = user.user_listings()
@@ -150,3 +152,26 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/borrow', methods=['POST'])
+@login_required
+def borrow():
+    borrower_id = request.args.get('borrower_id')
+    owner_id = request.args.get('owner_id')
+    listing_id = request.args.get('listing_id')
+    current_user_id = str(current_user.id)
+    if borrower_id != current_user_id:
+        return "Given borrower id is not logged in user id... whatchu tryna do?"
+    else:
+        try:
+            borrower = User.query.filter_by(id=borrower_id).first()
+            owner = User.query.filter_by(id=owner_id).first()
+            listing = Listing.query.filter_by(id=listing_id).first()
+            borrower.borrow_listing(listing)
+            owner.lend_listing(listing)
+            listing.mark_borrowed(borrower)
+            db.session.commit()
+            return redirect(url_for('profile', borrow_success=True))
+        except:
+            # TODO better error handling
+            return render_template('listing_details.html', listing=listing)

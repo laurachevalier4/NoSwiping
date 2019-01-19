@@ -11,7 +11,9 @@
           <p>Owned by <a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a></p>
           {% if current_user.points >= listing.cost %}
           <p>You have enough points!</p>
-          <button class="btn post-btn" type="submit">Borrow</button>
+          <form method="POST" action="/borrow?borrower_id={{ current_user.id }}&owner_id={{ listing.owner_id }}&listing_id={{ listing.id }}">
+            <button class="btn post-btn" type="submit">Borrow</button>
+          </form>
           {% else %}
           <p>You don't have enough points for this item!</p>
           {% endif %}

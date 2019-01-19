@@ -8,6 +8,7 @@ from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from werkzeug.security import generate_password_hash
 import babel as b
+import datetime
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -99,7 +100,8 @@ def before_first_request():
         'borrower_username': 'VincentIsCool2',
         'title' : 'Cast of Jersey Shore',
         'category' : 'Tools',
-        'cost' : 1
+        'cost' : 1,
+        'date_borrowed': datetime.datetime.utcnow()
     }
 
     listing1 = model.Listing(**testListing1)
@@ -113,7 +115,8 @@ def before_first_request():
         'borrower_username': 'LauraIsCool',
         'title' : 'My Little Pony',
         'category' : 'Games',
-        'cost' : 30
+        'cost' : 30,
+        'date_borrowed': datetime.datetime.utcnow()
     }
 
     listing2 = model.Listing(**testListing2)
@@ -127,7 +130,8 @@ def before_first_request():
         'borrower_username': None,
         'title' : 'Magic Bullet',
         'category' : 'Kitchenware',
-        'cost' : 20
+        'cost' : 20,
+
     }
 
     listing3 = model.Listing(**testListing3)
