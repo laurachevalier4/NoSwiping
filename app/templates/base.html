@@ -17,7 +17,6 @@
         <div class="nav-group">
           <a class="site-title" href="{{ url_for('index') }}">No Swiping.</a>
           <a class="nav-item" href="{{ url_for('index') }}">Home</a>
-          <a class="nav-item" href="{{ url_for('profile') }}">Profile</a>
           <a class="nav-item" href="{{ url_for('newpost') }}">New Listing</a>
         </div>
         <div class="nav-group">
@@ -29,7 +28,10 @@
           </form>
         </div>
         {% if current_user.is_authenticated %}
-        <a class="nav-item" href="{{ url_for('logout') }}">Logout</a>
+        <div class="nav-right">
+          <a class="nav-item" href="{{ url_for('profile') }}"><img id="nav-img" src="../static/img/mrbean.jpeg" alt="Mr. Bean" width="40"/></a>
+          <a class="nav-item" href="{{ url_for('logout') }}">Logout</a>
+        </div>
         {% else %}
         <a class="nav-item" href="{{ url_for('login') }}">Login</a>
         {% endif %}

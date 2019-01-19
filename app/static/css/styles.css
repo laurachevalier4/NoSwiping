@@ -103,6 +103,15 @@ body:before {
   padding-right: .4em;
 }
 
+#nav-img {
+  margin: .5em;
+  border-radius: 10em;
+}
+
+.nav-right {
+  padding-left: 5em;
+}
+
 .noresults {
   text-align: center;
   margin-top: 15%;
