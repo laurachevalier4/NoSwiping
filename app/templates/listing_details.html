@@ -4,10 +4,17 @@
     <div class="frame">
       <div class="container">
         <h1 class="header">{{ listing.title }}</h1>
-        <p>Cost: {{ listing.cost }} points</p>
         {% if current_user.id == listing.owner_id %}
-          <p>This is your item.</p>
+          <p>Cost: {{ listing.cost }} points</p>
+          <p>This is your listing.</p>
+        {% elif listing.borrower_id %}
+          {% if listing.borrower_id == current_user.id %}
+            <p>You are currently borrowing this item.</p>
+          {% else %}
+            <p>This listing is currently unavailable.</p>
+          {% endif %}
         {% else %}
+          <p>Cost: {{ listing.cost }} points</p>
           <p>Owned by <a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a></p>
           {% if current_user.points >= listing.cost %}
           <p>You have enough points!</p>
