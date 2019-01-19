@@ -127,7 +127,7 @@ def before_first_request():
         'borrower_username': None,
         'title' : 'Magic Bullet',
         'category' : 'Kitchenware',
-        'cost' : 40
+        'cost' : 20
     }
 
     listing3 = model.Listing(**testListing3)

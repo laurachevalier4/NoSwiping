@@ -235,6 +235,7 @@ a:focus, a:active {
   width: 100%;
   margin: auto;
   border: 3px solid rgba(94, 90, 98, 1);
+  border-radius: 0;
 }
 
 .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
@@ -279,4 +280,20 @@ a:focus, a:active {
   margin: auto;
   width: 100%;
   border: 3px solid rgba(94, 90, 98, 1);
+}
+
+/*****************  Listing Details  ********************/
+.listing.container {
+  width: 30%;
+}
+
+.listing.container .container {
+  text-align: center;
+  width: 100%;
+  font-size: 1.2em;
+}
+
+.listing .btn {
+  width: 5em;
+  border-color: #666699;
 }
