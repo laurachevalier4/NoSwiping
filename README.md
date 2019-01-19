@@ -3,10 +3,11 @@ Our awesome lending and borrowing webapp
 
 ## TODO:
 * Borrowing functionality
-  * Set borrower -- distinguish borrowed (past) to current borrow
+  * Return functionality
   * Lent item optionally refreshes automatically after returned
-  * ~In user profile, distinguish between lending (borrowed) and lending (not yet borrowed)~
-  * Modify listing details page for borrowed items
+  * Option to refresh manually
+* Listing descriptions
+* Edit [available] listings
 * Track listing history or number of borrows
 * Time limits
 * Trustworthy score / reviews
