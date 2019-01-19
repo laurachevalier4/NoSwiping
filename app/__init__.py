@@ -99,7 +99,7 @@ def before_first_request():
         'borrower_username': 'VincentIsCool2',
         'title' : 'Cast of Jersey Shore',
         'category' : 'Tools',
-        'cost' : 2
+        'cost' : 1
     }
 
     listing1 = model.Listing(**testListing1)
@@ -127,11 +127,25 @@ def before_first_request():
         'borrower_username': None,
         'title' : 'Magic Bullet',
         'category' : 'Kitchenware',
-        'cost' : 400
+        'cost' : 40
     }
 
     listing3 = model.Listing(**testListing3)
     db.session.add(listing3)
+    db.session.commit()
+
+    testListing4 = {
+        'owner_id' : 1,
+        'borrower_id' : None,
+        'owner_username': 'LauraIsCool',
+        'borrower_username': None,
+        'title' : 'Made to Stick',
+        'category' : 'Books',
+        'cost' : 10
+    }
+
+    listing4 = model.Listing(**testListing4)
+    db.session.add(listing4)
     db.session.commit()
 
 if os.environ.get('HEROKU') is not None:

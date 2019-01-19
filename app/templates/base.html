@@ -39,6 +39,11 @@
       <div id="main">
         {% block content %}{% endblock %}
       </div>
+      {% if current_user.is_authenticated %}
+      <div id="wallet">
+        <p>You have {{ current_user.points }} points to spend.</p>
+      </div>
+      {% endif %}
       <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}">
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
       </script>
