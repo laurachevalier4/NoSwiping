@@ -57,6 +57,9 @@
         <p>You have {{ current_user.points }} points to spend.</p>
       </div>
       {% endif %}
+      <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}">
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      </script>
       <script type=text/javascript>
         function displayNotifications() {
           let el = document.getElementById("notifications");
@@ -66,10 +69,16 @@
             el.style.display = "none";
           }
         }
+
+        $(document).mouseup(function(e) {
+            var container = $("#notifications");
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+              container.hide();
+            }
+        });
+
       </script>
       <script src="https://unpkg.com/ionicons@4.5.1/dist/ionicons.js"></script>
-      <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}">
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-      </script>
     </body>
 </html>
