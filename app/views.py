@@ -19,6 +19,9 @@ PER_PAGE = 20       # Number of results per page
 def before_request():
     g.user = current_user
     g.search_form = SearchForm()
+    if current_user:
+        g.notifications = current_user.get_unread_notifications()
+        # Notifications will only update when user makes new request
 
 # This is the homepage/categories page!
 @app.route('/')

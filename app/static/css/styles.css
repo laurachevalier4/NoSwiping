@@ -39,8 +39,9 @@ body:before {
   right: 1em;
   padding: .5em;
   font-size: 1.5em;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 1);
   border: 3px solid rgba(94, 90, 98, 1);
+  color: #666699;
 }
 
 .form-input {
@@ -60,7 +61,7 @@ body:before {
 .header {
   color: #666699;
   font-size: 1.8em;
-  color: rgba(94, 90, 98, 1);
+  /* color: rgba(94, 90, 98, 1); */
 }
 
 .site-title {
@@ -110,6 +111,51 @@ body:before {
 
 .nav-right {
   padding-left: 5em;
+}
+
+#nav-notifications {
+  cursor: pointer;
+  margin-right: .5em;
+}
+
+#num-notifications {
+  position: absolute;
+  font-size: .7em;
+  margin-right: 1em;
+}
+
+#notifications {
+  display: none;
+  background-color: white;
+  position: fixed;
+  top: 5em;
+  right: 5em;
+  border: 3px solid rgba(94, 90, 98, 1);
+  padding: 1em;
+  color: #666699;
+}
+
+#notifications:after, #notifications:before {
+	bottom: 100%;
+	left: 70%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#notifications:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #ffffff;
+	border-width: 30px;
+	margin-left: -30px;
+}
+#notifications:before {
+	border-bottom-color: rgba(94, 90, 98, 1);
+	border-width: 34px;
+	margin-left: -34px;
 }
 
 .noresults {

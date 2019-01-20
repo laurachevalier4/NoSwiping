@@ -58,6 +58,8 @@ class User(db.Model, UserMixin):
         foreign_keys='Listing.owner_id')
     borrows = db.relationship('Listing', backref='borrower', lazy='dynamic', \
         foreign_keys='Listing.borrower_id')
+    notifications = db.relationship('Notification', backref='user', \
+        lazy='dynamic', foreign_keys='Notification.user_id')
 
     def __repr__(self):
         return str(self.username)
@@ -76,6 +78,17 @@ class User(db.Model, UserMixin):
         self.password = password
         self.location = location
     """
+
+    def get_latest_notifications(self):
+        return self.notifications.order_by(Notification.timestamp.desc()) \
+            .limit(10)
+
+    def get_all_notifications(self):
+        return self.notifications.order_by(Notification.timestamp.desc()).all()
+
+    def get_unread_notifications(self):
+        return self.notifications.filter(Notification.acked == False) \
+            .order_by(Notification.timestamp.desc()).all()
 
     def user_listings(self):
         # return listings (selling) for given user
@@ -165,3 +178,19 @@ class Listing(db.Model):
 
 if enable_search:
     whooshalchemy.whoosh_index(app, Listing)
+
+class Notification(db.Model):
+    __tablename__ = 'notification'
+
+    id = db.Column(db.Integer, primary_key=True)
+    message = db.Column(db.String(255), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_username = db.Column(db.String(255), db.ForeignKey('user.username'), \
+        nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    acked = db.Column(db.Integer, default=0)  # has user seen this notification?
+
+    def __init__(self, message, user_id, user_username):
+        self.message = message
+        self.user_id = user_id
+        self.user_username = user_username
