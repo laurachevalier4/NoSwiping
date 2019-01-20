@@ -161,6 +161,15 @@ def before_first_request():
     db.session.add(notification1)
     db.session.commit()
 
+    testNotification2 = {
+        'message': 'My second notification! And this one is longer.',
+        'user_id': 1,
+        'user_username': 'LauraIsCool'
+    }
+    notification2 = model.Notification(**testNotification2)
+    db.session.add(notification2)
+    db.session.commit()
+
 if os.environ.get('HEROKU') is not None:
     import logging
     stream_handler = logging.StreamHandler()

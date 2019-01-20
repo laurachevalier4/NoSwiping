@@ -189,6 +189,7 @@ class Notification(db.Model):
         nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     acked = db.Column(db.Integer, default=0)  # has user seen this notification?
+    url = db.Column(db.String(255), nullable=True, default="")
 
     def __init__(self, message, user_id, user_username):
         self.message = message

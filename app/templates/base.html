@@ -33,6 +33,11 @@
             <span id="nav-notifications" onclick="displayNotifications()">
               <ion-icon name="notifications-outline"></ion-icon>
               <span id="num-notifications">{{ g.notifications|length }}</span>
+              <div id="notifications">
+                {% for notification in g.notifications %}
+                  <div>{{ notification.message }}</div>
+                {% endfor %}
+              </div>
             </span>
           {% endif %}
           <a class="nav-item" href="{{ url_for('profile') }}"><img id="nav-img" src="../static/img/mrbean.jpeg" alt="Mr. Bean" width="40"/></a>
@@ -41,11 +46,6 @@
         {% else %}
         <a class="nav-item" href="{{ url_for('login') }}">Login</a>
         {% endif %}
-        <div id="notifications">
-          {% for notification in g.notifications %}
-            <span>{{ notification.message }}</span>
-          {% endfor %}
-        </div>
         <!-- <span class="icon-bar"></span> -->
         <!-- <span class="icon-bar"></span> -->
       </div><!-- nav-items -->

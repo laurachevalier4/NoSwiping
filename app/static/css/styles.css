@@ -127,9 +127,9 @@ body:before {
 #notifications {
   display: none;
   background-color: white;
-  position: fixed;
+  position: absolute;
   top: 5em;
-  right: 5em;
+  right: 3em;
   border: 3px solid rgba(94, 90, 98, 1);
   padding: 1em;
   color: #666699;
@@ -137,7 +137,8 @@ body:before {
 
 #notifications:after, #notifications:before {
 	bottom: 100%;
-	left: 70%;
+	/* right: 30%; */
+  right: 4em;
 	border: solid transparent;
 	content: " ";
 	height: 0;
@@ -155,7 +156,7 @@ body:before {
 #notifications:before {
 	border-bottom-color: rgba(94, 90, 98, 1);
 	border-width: 34px;
-	margin-left: -34px;
+	margin-right: -4px;
 }
 
 .noresults {
