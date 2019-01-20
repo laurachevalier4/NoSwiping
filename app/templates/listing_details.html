@@ -9,7 +9,10 @@
           <p>This is your listing.</p>
         {% elif listing.borrower_id %}
           {% if listing.borrower_id == current_user.id %}
-            <p>You are currently borrowing this item.</p>
+            <p>You are currently borrowing this item from <a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a>.</p>
+            <form method="POST" action="/return?borrower_id={{ current_user.id }}&owner_id={{ listing.owner_id }}&listing_id={{ listing.id }}">
+              <button class="btn post-btn" type="submit">Return</button>
+            </form>
           {% else %}
             <p>This listing is currently unavailable.</p>
           {% endif %}

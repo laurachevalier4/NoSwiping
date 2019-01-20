@@ -88,6 +88,9 @@ class User(db.Model, UserMixin):
         self.borrows.append(listing)
         self.points -= listing.cost
 
+    def return_listing(self, listing):
+        self.borrows.remove(listing)
+
     def lend_listing(self, listing):
         self.points += listing.cost
 
@@ -154,6 +157,11 @@ class Listing(db.Model):
         self.borrower_id = borrower.id
         self.borrower_username = borrower.username
         self.date_borrowed = datetime.datetime.utcnow()
+
+    def mark_returned(self):
+        self.borrower_id = None
+        self.borrower_username = None
+        self.date_borrowed = None
 
 if enable_search:
     whooshalchemy.whoosh_index(app, Listing)

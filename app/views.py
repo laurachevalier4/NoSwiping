@@ -178,3 +178,26 @@ def borrow():
         except:
             # TODO better error handling
             return render_template('listing_details.html', listing=listing)
+
+@app.route('/return', methods=['POST'])
+@login_required
+def return_listing():
+    borrower_id = request.args.get('borrower_id')
+    owner_id = request.args.get('owner_id')
+    listing_id = request.args.get('listing_id')
+    current_user_id = str(current_user.id)
+    if borrower_id != current_user_id:
+        return "Given borrower id is not logged in user id... whatchu tryna do?"
+    else:
+        try:
+            borrower = User.query.filter_by(id=borrower_id).first()
+            owner = User.query.filter_by(id=owner_id).first()
+            listing = Listing.query.filter_by(id=listing_id).first()
+            borrower.return_listing(listing)
+            # owner.take_back_listing(listing)
+            listing.mark_returned()
+            db.session.commit()
+            return redirect(url_for('profile', return_success=True))
+        except:
+            # TODO better error handling
+            return render_template('listing_details.html', listing=listing)
