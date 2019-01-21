@@ -30,8 +30,8 @@
         {% if current_user.is_authenticated %}
         <div class="nav-right">
           {% if g.notifications|length > 0 %}
-            <span id="nav-notifications" onclick="displayNotifications()">
-              <ion-icon name="notifications-outline"></ion-icon>
+            <span id="nav-notifications">
+              <ion-icon name="notifications-outline" onclick="displayNotifications()"></ion-icon>
               <span id="num-notifications">{{ g.notifications|length }}</span>
               <div id="notifications">
                 {% for notification in g.notifications %}
