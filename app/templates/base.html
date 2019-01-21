@@ -31,12 +31,16 @@
         <div class="nav-right">
           <span id="nav-notifications">
             <ion-icon name="notifications-outline" onclick="displayNotifications()"></ion-icon>
-            {% if g.notifications|length > 0 %}
-              <span id="num-notifications">{{ g.notifications|length }}</span>
+            {% if g.unread_notifications|length > 0 %}
+              <span id="num-notifications">{{ g.unread_notifications|length }}</span>
             {% endif %}
             <div id="notifications">
               {% for notification in g.notifications %}
-                <div><a href="{{ notification.url }}"><ion-icon name="arrow-dropright"></ion-icon><span>{{ notification.message }}</span></a></div>
+                {% if not notification.acked %}
+                  <div class="unacked"><span class="notification"><a href="{{ notification.url }}"><ion-icon name="arrow-dropright"></ion-icon>{{ notification.message }}</span></a></div>
+                {% else %}
+                  <div class="acked"><span class="notification"><a href="{{ notification.url }}"><ion-icon name="arrow-dropright"></ion-icon>{{ notification.message }}</span></a></div>
+                {% endif %}
               {% endfor %}
             </div>
           </span>

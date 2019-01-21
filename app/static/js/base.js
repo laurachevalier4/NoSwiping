@@ -19,7 +19,6 @@ function markNotificationsRead() {
   console.log("mark notifications read.")
   $.post('/mark_notifications_read', {})
     .done(function(response) {
-      console.log(response);
       $("#num-notifications").text("");
     }).fail(function() {
       console.log('Error: Could not contact server.');

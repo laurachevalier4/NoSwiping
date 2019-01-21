@@ -135,11 +135,11 @@ body:before {
   color: #666699;
 }
 
-#notifications div {
+#notifications a {
   color: #8585ad;
 }
 
-#notifications div:hover {
+#notifications a:hover {
   color: #333377;
 }
 
@@ -161,10 +161,19 @@ body:before {
 	border-width: 30px;
 	margin-left: -30px;
 }
+
 #notifications:before {
 	border-bottom-color: rgba(94, 90, 98, 1);
 	border-width: 34px;
 	margin-right: -4px;
+}
+
+.unacked {
+  font-weight: bold;
+}
+
+.acked {
+  font-weight: lighter;
 }
 
 .noresults {

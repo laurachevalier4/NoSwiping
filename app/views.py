@@ -20,7 +20,8 @@ def before_request():
     g.user = current_user
     g.search_form = SearchForm()
     if current_user.is_authenticated:
-        g.notifications = current_user.get_unread_notifications()
+        g.unread_notifications = current_user.get_unread_notifications()
+        g.notifications = current_user.get_latest_notifications()
         # Notifications will only update when user makes new request
 
 # This is the homepage/categories page!
@@ -209,7 +210,7 @@ def return_listing():
 @app.route('/mark_notifications_read', methods=['POST'])
 @login_required
 def mark_notifications_read():
-    notifications = g.notifications  # unread notifications
+    notifications = g.unread_notifications
     for n in notifications:
         n.acked = 1
         db.session.add(n)
