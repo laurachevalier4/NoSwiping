@@ -135,6 +135,14 @@ body:before {
   color: #666699;
 }
 
+#notifications div {
+  color: #8585ad;
+}
+
+#notifications div:hover {
+  color: #333377;
+}
+
 #notifications:after, #notifications:before {
 	bottom: 100%;
 	/* right: 30%; */

@@ -205,3 +205,13 @@ def return_listing():
         except:
             # TODO better error handling
             return render_template('listing_details.html', listing=listing)
+
+@app.route('/mark_notifications_read', methods=['POST'])
+@login_required
+def mark_notifications_read():
+    notifications = g.notifications  # unread notifications
+    for n in notifications:
+        n.acked = 1
+        db.session.add(n)
+    db.session.commit()
+    return "success"

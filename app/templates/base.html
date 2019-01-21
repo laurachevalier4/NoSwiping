@@ -36,7 +36,7 @@
             {% endif %}
             <div id="notifications">
               {% for notification in g.notifications %}
-                <a href="{{ notification.url }}"><div>{{ notification.message }}</div></a>
+                <div><a href="{{ notification.url }}"><ion-icon name="arrow-dropright"></ion-icon><span>{{ notification.message }}</span></a></div>
               {% endfor %}
             </div>
           </span>

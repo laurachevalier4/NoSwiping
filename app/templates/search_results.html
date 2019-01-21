@@ -8,23 +8,23 @@
     <div class="frame">
       <div class="table-div">
         <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Owner</th>
-                <th>Transaction Title</th>
-                <th>Category</th>
-                <th>Cost</th>
-                <th>Date Listed</th>
-              </tr>
-            </thead>
-            <tbody>
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Transaction Title</th>
+              <th>Category</th>
+              <th>Cost</th>
+              <th>Date Listed</th>
+            </tr>
+          </thead>
+          <tbody>
             {% for listing in results %}
             <tr>
-                <td><a href="/profile/{{ listing.owner_id }}"> {{ listing.owner_username }}</a></td>
-                <td>{{ listing.title }}</td>
-                <td>{{ listing.category }}</td>
-                <td>{{ listing.cost }}</td>
-                <td>{{ listing.date_listed|datetime }}</td>
+              <td><a href="/profile/{{ listing.owner_id }}"> {{ listing.owner_username }}</a></td>
+              <td>{{ listing.title }}</td>
+              <td>{{ listing.category }}</td>
+              <td>{{ listing.cost }}</td>
+              <td>{{ listing.date_listed|datetime }}</td>
             </tr>
             {% endfor %}
           </tbody>
