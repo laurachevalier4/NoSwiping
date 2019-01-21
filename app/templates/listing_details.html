@@ -7,6 +7,9 @@
         {% if current_user.id == listing.owner_id %}
           <p>Cost: {{ listing.cost }} points</p>
           <p>This is your listing.</p>
+          {% if listing.borrower_id %}
+            <p>Borrowed by <a href="/profile/{{ listing.borrower_id }}">{{ listing.borrower_username }}</a> on {{ listing.date_borrowed|datetime('full') }}</p>
+          {% endif %}
         {% elif listing.borrower_id %}
           {% if listing.borrower_id == current_user.id %}
             <p>You are currently borrowing this item from <a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a>.</p>
