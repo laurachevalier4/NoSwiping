@@ -6,28 +6,30 @@
     {% if results %}
     <h2 class="header">Search results for "{{ query }}":</h2>
     <div class="frame">
-      <table class="table table-hover">
-          <thead>
+      <div class="table-div">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th> Owner </th>
+                <th> Transaction Title </th>
+                <th> Category </th>
+                <th> Cost </th>
+                <th> Date Listed </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for listing in results %}
             <tr>
-              <th> Owner </th>
-              <th> Transaction Title </th>
-              <th> Category </th>
-              <th> Cost </th>
-              <th> Date Listed </th>
+                <td><a href="/profile/{{ listing.owner_id }}"> {{ listing.owner_username }}</a></td>
+                <td> {{ listing.title }} </td>
+                <td> {{ listing.category }} </td>
+                <td> {{ listing.cost }} </td>
+                <td> {{ listing.date_listed|datetime }} </td>
             </tr>
-          </thead>
-          <tbody>
-          {% for listing in results %}
-          <tr>
-              <td><a href="/profile/{{ listing.owner_id }}"> {{ listing.owner_username }}</a></td>
-              <td> {{ listing.title }} </td>
-              <td> {{ listing.category }} </td>
-              <td> {{ listing.cost }} </td>
-              <td> {{ listing.date_listed|datetime }} </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
     {% else %}
     <h2 class="noresults">No results for "{{ query }}".</h2>

@@ -228,8 +228,13 @@ th {
 }
 
 table, .table {
-  border: 3px solid rgba(94, 90, 98, 1);
+  /*border: 3px solid rgba(94, 90, 98, 1);*/
   margin-bottom: 0;
+}
+
+.table-div {
+  padding: 1.5em;
+  border: 3px solid rgba(94, 90, 98, 1);
 }
 
 thead, thead>tr:hover {

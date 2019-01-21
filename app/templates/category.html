@@ -4,28 +4,30 @@
   {% if num_listings %}
    <h2 class="header">{{ num_listings }} listings found for the  {{ category_name }} category:</h2>
    <div class="frame">
-     <table class="table table-hover">
-       <thead>
-         <tr>
-           <th> Owner </th>
-           <th> Item Title </th>
-           <th> Category </th>
-           <th> Cost </th>
-           <th> Date Listed </th>
-         </tr>
-       </thead>
-       <tbody>
-         {% for listing in listings %}
-         <tr>
-           <td><a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a></td>
-           <td><a href="/listing/{{ listing.id }}">{{ listing.title }}</a></td>
-           <td> {{ listing.category }} </td>
-           <td> {{ listing.cost }} </td>
-           <td> {{ listing.date_listed|datetime }} </td>
-         </tr>
-         {% endfor %}
-       </tbody>
-     </table>
+     <div class="table-div">
+       <table class="table table-hover">
+         <thead>
+           <tr>
+             <th> Owner </th>
+             <th> Item Title </th>
+             <th> Category </th>
+             <th> Cost </th>
+             <th> Date Listed </th>
+           </tr>
+         </thead>
+         <tbody>
+           {% for listing in listings %}
+           <tr>
+             <td><a href="/profile/{{ listing.owner_id }}">{{ listing.owner_username }}</a></td>
+             <td><a href="/listing/{{ listing.id }}">{{ listing.title }}</a></td>
+             <td> {{ listing.category }} </td>
+             <td> {{ listing.cost }} </td>
+             <td> {{ listing.date_listed|datetime }} </td>
+           </tr>
+           {% endfor %}
+         </tbody>
+       </table>
+     </div>
    </div>
    {% else %}
    <h2 class="noresults">No listings found for the {{ category_name }} category.</h2>
