@@ -90,6 +90,20 @@ class User(db.Model, UserMixin):
         return self.notifications.filter(Notification.acked == False) \
             .order_by(Notification.timestamp.desc()).all()
 
+    def add_notification(self, message, url, user_id=None, user_username=None):
+        if user_id is None:
+            # if user isn't specified, use this user
+            user_id = self.id
+            user_username = self.username
+        new_notification = Notification(message, user_id, user_username, url)
+        self.notifications.append(new_notification)
+
+    def borrowed_listing_notification(self, url):
+        self.add_notification("Your listing has been borrowed, click to see which one!", url)
+
+    def returned_listing_notification(self, url, user_id, user_username):
+        self.add_notification("Your listing has been returned, click to see which one!", url, user_id, user_username)
+
     def user_listings(self):
         # return listings (selling) for given user
         return self.listings.order_by(Listing.date_listed.desc()).limit(10)
@@ -103,9 +117,13 @@ class User(db.Model, UserMixin):
 
     def return_listing(self, listing):
         self.borrows.remove(listing)
+        # notify the lending that their listing has been returned
+        self.returned_listing_notification(listing.owner_id, listing.owner_username, "/listing/{}".format(listing.id))
 
     def lend_listing(self, listing):
         self.points += listing.cost
+        # notify the lender that their listing has been borrowed
+        self.borrowed_listing_notification("/listing/{}".format(listing.id))
 
     def serialize(self, columns):
         cols = {
@@ -191,7 +209,8 @@ class Notification(db.Model):
     acked = db.Column(db.Integer, default=0)  # has user seen this notification?
     url = db.Column(db.String(255), nullable=True, default="")
 
-    def __init__(self, message, user_id, user_username):
+    def __init__(self, message, user_id, user_username, url):
         self.message = message
         self.user_id = user_id
         self.user_username = user_username
+        self.url = url

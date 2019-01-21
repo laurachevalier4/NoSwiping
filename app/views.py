@@ -19,7 +19,7 @@ PER_PAGE = 20       # Number of results per page
 def before_request():
     g.user = current_user
     g.search_form = SearchForm()
-    if current_user:
+    if current_user.is_authenticated:
         g.notifications = current_user.get_unread_notifications()
         # Notifications will only update when user makes new request
 
@@ -178,8 +178,9 @@ def borrow():
             listing.mark_borrowed(borrower)
             db.session.commit()
             return redirect(url_for('profile', borrow_success=True))
-        except:
+        except Exception as e:
             # TODO better error handling
+            print(e)
             return render_template('listing_details.html', listing=listing)
 
 @app.route('/return', methods=['POST'])

@@ -29,17 +29,17 @@
         </div>
         {% if current_user.is_authenticated %}
         <div class="nav-right">
-          {% if g.notifications|length > 0 %}
-            <span id="nav-notifications">
-              <ion-icon name="notifications-outline" onclick="displayNotifications()"></ion-icon>
+          <span id="nav-notifications">
+            <ion-icon name="notifications-outline" onclick="displayNotifications()"></ion-icon>
+            {% if g.notifications|length > 0 %}
               <span id="num-notifications">{{ g.notifications|length }}</span>
-              <div id="notifications">
-                {% for notification in g.notifications %}
-                  <div>{{ notification.message }}</div>
-                {% endfor %}
-              </div>
-            </span>
-          {% endif %}
+            {% endif %}
+            <div id="notifications">
+              {% for notification in g.notifications %}
+                <a href="{{ notification.url }}"><div>{{ notification.message }}</div></a>
+              {% endfor %}
+            </div>
+          </span>
           <a class="nav-item" href="{{ url_for('profile') }}"><img id="nav-img" src="../static/img/mrbean.jpeg" alt="Mr. Bean" width="40"/></a>
           <a class="nav-item" href="{{ url_for('logout') }}">Logout</a>
         </div>

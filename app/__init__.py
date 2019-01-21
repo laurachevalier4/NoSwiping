@@ -155,7 +155,8 @@ def before_first_request():
     testNotification1 = {
         'message': 'Notifications are working!',
         'user_id': 1,
-        'user_username': 'LauraIsCool'
+        'user_username': 'LauraIsCool',
+        'url': '#'
     }
     notification1 = model.Notification(**testNotification1)
     db.session.add(notification1)
@@ -164,7 +165,8 @@ def before_first_request():
     testNotification2 = {
         'message': 'My second notification! And this one is longer.',
         'user_id': 1,
-        'user_username': 'LauraIsCool'
+        'user_username': 'LauraIsCool',
+        'url': '#'
     }
     notification2 = model.Notification(**testNotification2)
     db.session.add(notification2)
