@@ -2,8 +2,6 @@
 Our awesome lending and borrowing webapp
 
 ## TODO:
-* Borrowing functionality
-  * Return functionality
 * Listing descriptions
 * Edit [available] listings
 * Track listing history or number of borrows
